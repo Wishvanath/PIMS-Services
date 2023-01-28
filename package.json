@@ -9,8 +9,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
-    "test:dev": "jest --watchAll",
-    "prepare": "husky install"
+    "test:dev": "jest --watchAll"
   },
   "husky": {
     "hooks": {

@@ -1,9 +1,11 @@
 import express from 'express';
-const app = express();
-const PORT = 5000;
 
+const app = express();
+// const env = require('dotenv').config();
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
     console.log(`Server is listening on PORT :${PORT}`);
 })
 
-console.log("Testing commit");
+export default app;

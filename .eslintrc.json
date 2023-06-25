@@ -5,9 +5,9 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
+        // "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:node/recommended",
+        // "plugin:node/recommended",
         "airbnb",
         "prettier"
     ],
@@ -23,6 +23,8 @@
     ],
     "rules": {
         // "prettier/prettier":"error",
+        "no-param-reassign": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "no-unused-vars":"warn",
         "no-console":"off",
         "func-names":"off"

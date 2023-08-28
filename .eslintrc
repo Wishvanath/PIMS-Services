@@ -9,9 +9,9 @@
         "airbnb",
         "airbnb-typescript/base"
     ],
-    // "parserOptions": {
-    //     "project" : "./tsconfig.eslint.json"
-    // },
+    "parserOptions": {
+        "project" : "./tsconfig.eslint.json"
+    },
     "overrides": [
         {
             "files": ["@.test.js"],

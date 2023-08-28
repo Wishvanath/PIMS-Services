@@ -27,6 +27,8 @@
         "@typescript-eslint/no-explicit-any": "off",
         "no-unused-vars":"warn",
         "no-console":"off",
-        "func-names":"off"
+        "func-names":"off",
+        "import/no-unresolved": "off"
+
     }
 }

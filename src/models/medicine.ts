@@ -2,59 +2,59 @@ import { DataTypes, Optional, ModelDefined } from 'sequelize';
 import { sequelize } from '.';
 
 // create interface for Meddicine table column
-export interface SupplierAttributes {
-  supplierId: number;
-  supplierName: string;
-  phone: number;
-  email: string;
-  address: string;
+export interface MedicineAttributes {
+  medicineId: number;
+  medicineName: string;
+  medicineType: string;
+  medicineDescp: string;
+  medicinePrice: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface SupplierCreationAttributes
-  extends Optional<SupplierAttributes, 'supplierId'> {}
+interface MedicineCreationAttributes
+  extends Optional<MedicineAttributes, 'medicineId'> {}
 
 export const Medicine: ModelDefined<
-  SupplierAttributes,
-  SupplierCreationAttributes
+  MedicineAttributes,
+  MedicineCreationAttributes
 > = sequelize.define(
   'Medicine',
   {
-    supplierId: {
-      field: 'SupplierId',
+    medicineId: {
+      field: 'MedicineId',
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    supplierName: {
-      field: 'SupplierName',
+    medicineName: {
+      field: 'MedicineName',
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    phone: {
-      field: 'Phone',
+    medicineType: {
+      field: 'MedicineType',
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    medicineDescp: {
+      field: 'MedicineDescp',
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    medicinePrice: {
+      field: 'MedicinePrice',
       type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    email: {
-      field: 'Email',
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
-    address: {
-      field: 'Address',
-      type: DataTypes.STRING(500),
       allowNull: true,
     },
   },
   {
-    tableName: 'Supplier',
+    tableName: 'Medicine',
     timestamps: false,
     indexes: [
       {
         unique: true,
-        fields: ['SupplierId'],
+        fields: ['MedicineId'],
       },
     ],
   }

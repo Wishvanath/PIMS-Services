@@ -6,7 +6,6 @@ import { Doctor } from './doctor';
 // create interface for appointment table column
 export interface AppointmentAttributes {
   id: number;
-  appointmentId: number;
   patientId: number;
   type: string;
   createdDate: Date;
@@ -32,11 +31,6 @@ export const Appointment: ModelDefined<
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false,
-    },
-    appointmentId: {
-      field: 'AppointmentId',
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     patientId: {
@@ -95,21 +89,21 @@ export const Appointment: ModelDefined<
 
 // create association
 Patient.hasMany(Appointment, {
-  foreignKey: 'Patient_patient_id_FK',
+  foreignKey: 'Patient_patientId_FK',
   sourceKey: 'patientId',
 });
 Appointment.belongsTo(Patient, {
   as: 'patient',
-  foreignKey: 'Patient_patient_id_FK',
+  foreignKey: 'Patient_patientId_FK',
   targetKey: 'patientId',
 });
 
 Doctor.hasMany(Appointment, {
-  foreignKey: 'Doctor_doctor_id_FK',
-  sourceKey: 'doctor_id',
+  foreignKey: 'Doctor_doctorId_FK',
+  sourceKey: 'doctorId',
 });
 Appointment.belongsTo(Doctor, {
   as: 'doctor',
-  foreignKey: 'Doctor_doctor_id_FK',
-  targetKey: 'doctor_id',
+  foreignKey: 'Doctor_doctorId_FK',
+  targetKey: 'doctorId',
 });

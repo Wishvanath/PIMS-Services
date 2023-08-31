@@ -14,11 +14,11 @@ export interface SupplierAttributes {
 interface SupplierCreationAttributes
   extends Optional<SupplierAttributes, 'supplierId'> {}
 
-export const Medicine: ModelDefined<
+export const Supplier: ModelDefined<
   SupplierAttributes,
   SupplierCreationAttributes
 > = sequelize.define(
-  'Medicine',
+  'Supplier',
   {
     supplierId: {
       field: 'SupplierId',

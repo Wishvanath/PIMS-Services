@@ -1,7 +1,7 @@
 import { DataTypes, Optional, ModelDefined } from 'sequelize';
 import { sequelize } from '.';
 
-// create interface for patient table
+// create interface for patient table column
 
 export interface PatientAttributes {
   patientId: number;
@@ -84,3 +84,5 @@ export const Patient: ModelDefined<
     ],
   }
 );
+
+export default Patient;

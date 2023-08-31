@@ -1,6 +1,5 @@
 import { DataTypes, Optional, ModelDefined } from 'sequelize';
 import { sequelize } from '.';
-import { Lab } from './lab';
 
 // create interface for TestPrice table column
 export interface TestPriceAttributes {

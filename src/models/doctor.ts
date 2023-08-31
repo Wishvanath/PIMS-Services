@@ -68,3 +68,5 @@ export const Doctor: ModelDefined<DoctorAttributes, DoctorCreationAttributes> =
       ],
     }
   );
+
+export default Doctor;

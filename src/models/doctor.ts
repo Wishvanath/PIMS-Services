@@ -60,12 +60,6 @@ export const Doctor: ModelDefined<DoctorAttributes, DoctorCreationAttributes> =
     {
       tableName: 'Doctor',
       timestamps: false,
-      indexes: [
-        {
-          unique: true,
-          fields: ['Id'],
-        },
-      ],
     }
   );
 

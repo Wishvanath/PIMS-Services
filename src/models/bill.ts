@@ -83,7 +83,7 @@ export const Bill: ModelDefined<BillAttributes, BillCreationAttributes> =
       indexes: [
         {
           unique: true,
-          fields: ['BillId', 'PatientId', 'InsuranceId'],
+          fields: ['PatientId', 'InsuranceId'],
         },
       ],
     }

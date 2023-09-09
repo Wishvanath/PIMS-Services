@@ -1,22 +1,56 @@
-'use strict';
+const TABLE_NAME = 'InsuranceCover';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable(
+      TABLE_NAME,
+      {
+        insuranceCode: {
+          field: 'InsuranceCode',
+          allowNull: false,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        insuranceCompany: {
+          field: 'InsuranceCompany',
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        insurancePlan: {
+          field: 'InsurancePlan',
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        entryFee: {
+          field: 'EntryFee',
+          type: Sequelize.FLOAT,
+          allowNull: true,
+        },
+        coPayy: {
+          field: 'CoPayy',
+          type: Sequelize.FLOAT,
+          allowNull: true,
+        },
+        coInsurance: {
+          field: 'CoInsurance',
+          type: Sequelize.FLOAT,
+          allowNull: true,
+        },
+        medCoverage: {
+          field: 'MedCoverage',
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+      },
+      {
+        timestamps: false,
+        freezeTableName: true,
+      }
+    );
   },
-
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+  down: async (queryInterface) => {
+    await queryInterface.dropTable({
+      tableName: TABLE_NAME,
+    });
+  },
 };

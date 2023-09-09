@@ -79,7 +79,7 @@ export const Payroll: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['PayrollId', 'EmployeeId'],
+        fields: ['PayrollId', 'EmployeeId'],// remove index
       },
     ],
   }

@@ -79,7 +79,7 @@ export const Patient: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['PatientId'],
+        fields: ['PatientId'], // need to remove indexes
       },
     ],
   }

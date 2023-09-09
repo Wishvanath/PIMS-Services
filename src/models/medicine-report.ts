@@ -79,7 +79,7 @@ export const MedicineReport: ModelDefined<
     timestamps: false,
     indexes: [
       {
-        unique: true,
+        unique: false,
         fields: ['Id'],
       },
     ],

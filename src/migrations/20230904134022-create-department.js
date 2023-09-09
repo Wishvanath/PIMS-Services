@@ -1,4 +1,5 @@
 const TABLE_NAME = 'Department';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable(TABLE_NAME, {

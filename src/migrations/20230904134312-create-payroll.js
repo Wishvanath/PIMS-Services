@@ -1,5 +1,5 @@
 const TABLE_NAME = 'Payroll';
-const UNIQUE_INDEX = `$IX_${TABLE_NAME}_EmployeeId`;
+// const UNIQUE_INDEX = `$IX_${TABLE_NAME}_EmployeeId`;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

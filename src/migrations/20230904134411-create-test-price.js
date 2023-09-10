@@ -1,22 +1,32 @@
-'use strict';
+const TABLE_NAME = 'TestPrice';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable(
+      TABLE_NAME,
+      {
+        testId: {
+          field: 'TestId',
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        testPrice: {
+          field: 'TestPrice',
+          type: Sequelize.FLOAT,
+          allowNull: true,
+        },
+      },
+      {
+        timestamps: false,
+        freezeTableName: true,
+      }
+    );
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+  down: async (queryInterface) => {
+    await queryInterface.dropTable({
+      tableName: TABLE_NAME,
+    });
+  },
 };

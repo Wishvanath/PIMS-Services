@@ -17,7 +17,7 @@ module.exports = {
           personalId: {
             field: 'PersonalId',
             type: Sequelize.STRING(255),
-            allowNull: false,
+            allowNull: true,
           },
           firstName: {
             field: 'FirstName',
@@ -27,7 +27,7 @@ module.exports = {
           lastName: {
             field: 'LastName',
             type: Sequelize.STRING(255),
-            allowNull: false,
+            allowNull: true,
           },
           country: {
             field: 'Country',
@@ -46,19 +46,19 @@ module.exports = {
           },
           address: {
             field: 'Address',
-            type: Sequelize.STRING(500),
-            allowNull: false,
+            type: Sequelize.STRING(1000),
+            allowNull: true,
           },
           phone: {
             field: 'Phone',
             type: Sequelize.INTEGER(10),
-            allowNull: false,
+            allowNull: true,
           },
           email: {
             field: 'Email',
             type: Sequelize.STRING(255),
-            allowNull: false,
-            unique: true, // Ensure email is unique
+            allowNull: true,
+            unique: true,
           },
           departmentId: {
             field: 'DepartmentId',
@@ -67,7 +67,7 @@ module.exports = {
               model: {
                 tableName: 'Department',
               },
-              key: 'DepartmentId', // The primary key of the referenced table
+              key: 'DepartmentId',
             },
             allowNull: false,
             onUpdate: 'casecade',

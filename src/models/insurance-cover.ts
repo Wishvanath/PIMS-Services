@@ -41,17 +41,17 @@ export const InsuranceCover: ModelDefined<
     },
     entryFee: {
       field: 'EntryFee',
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     coPayy: {
       field: 'CoPayy',
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     coInsurance: {
       field: 'CoInsurance',
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
     },
     medCoverage: {
@@ -63,11 +63,7 @@ export const InsuranceCover: ModelDefined<
   {
     tableName: 'InsuranceCover',
     timestamps: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['InsuranceCode'],
-      },
-    ],
   }
 );
+
+export default InsuranceCover;

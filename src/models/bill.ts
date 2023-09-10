@@ -33,37 +33,37 @@ export const Bill: ModelDefined<BillAttributes, BillCreationAttributes> =
       },
       doctorCharge: {
         field: 'DoctorCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       medicineCharge: {
         field: 'MedicineCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       roomCharge: {
         field: 'RoomCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       operationCharge: {
         field: 'OperationCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       nursingCharge: {
         field: 'NursingCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       labCharge: {
         field: 'LabCharge',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       advance: {
         field: 'Advance',
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       patientId: {
@@ -91,21 +91,21 @@ export const Bill: ModelDefined<BillAttributes, BillCreationAttributes> =
 
 // create association
 Patient.hasMany(Bill, {
-  foreignKey: 'Patient_patientId_FK',
-  sourceKey: 'patientId',
+  foreignKey: 'PatientId',
+  sourceKey: 'PatientId',
 });
 Bill.belongsTo(Patient, {
   as: 'patient',
-  foreignKey: 'Patient_patientId_FK',
-  targetKey: 'patientId',
+  foreignKey: 'PatientId',
+  targetKey: 'PatientId',
 });
 
 Insurance.hasMany(Bill, {
-  foreignKey: 'Insurance_insuranceId_FK',
-  sourceKey: 'insuranceId',
+  foreignKey: 'InsuranceId',
+  sourceKey: 'InsuranceId',
 });
 Bill.belongsTo(Insurance, {
   as: 'insurance',
-  foreignKey: 'Insurance_insuranceId_FK',
-  targetKey: 'insuranceId',
+  foreignKey: 'InsuranceId',
+  targetKey: 'InsuranceId',
 });

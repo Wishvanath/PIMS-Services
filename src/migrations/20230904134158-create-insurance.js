@@ -15,32 +15,32 @@ module.exports = {
           },
           publishDate: {
             field: 'PublishDate',
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: false,
           },
           expiryDate: {
             field: 'ExpiryDate',
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: false,
           },
           maternity: {
             field: 'Maternity',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           dental: {
             field: 'Dental',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           optional: {
             field: 'Optional',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           chronicPatient: {
             field: 'ChronicPatient',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           patientId: {
@@ -50,6 +50,7 @@ module.exports = {
               model: 'Patient',
               key: 'PatientId',
             },
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -60,6 +61,7 @@ module.exports = {
               model: 'InsuranceCover',
               key: 'InsuranceCode',
             },
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -86,7 +88,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.removeIndex(TABLE_NAME, {
+      await queryInterface.removeIndex(TABLE_NAME, UNIQUE_INDEX, {
         transaction,
       });
       return queryInterface.dropTable({

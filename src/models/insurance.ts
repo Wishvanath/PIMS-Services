@@ -12,7 +12,7 @@ export interface InsuranceAttributes {
   dental: string;
   optional: string;
   chronicPatient: string;
-  patientid: number;
+  patientId: number;
   insuranceCode: number;
 }
 
@@ -63,8 +63,8 @@ export const Insurance: ModelDefined<
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    patientid: {
-      field: 'Patientid',
+    patientId: {
+      field: 'PatientId',
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -80,7 +80,7 @@ export const Insurance: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['InsuranceId', 'Patientid'],
+        fields: ['PatientId','InsuranceId'],
       },
     ],
   }
@@ -88,21 +88,21 @@ export const Insurance: ModelDefined<
 
 // create association
 InsuranceCover.hasMany(Insurance, {
-  foreignKey: 'InsuranceCover_insuranceCode_FK',
-  sourceKey: 'insuranceCode',
+  foreignKey: 'InsuranceCode',
+  sourceKey: 'InsuranceCode',
 });
 Insurance.belongsTo(InsuranceCover, {
   as: 'insurancecover',
-  foreignKey: 'InsuranceCover_insuranceCode_FK',
-  targetKey: 'insuranceCode',
+  foreignKey: 'InsuranceCode',
+  targetKey: 'InsuranceCode',
 });
 
 Patient.hasMany(Insurance, {
-  foreignKey: 'Patient_patientId_FK',
-  sourceKey: 'patientId',
+  foreignKey: 'PatientId',
+  sourceKey: 'PatientId',
 });
 Insurance.belongsTo(Patient, {
   as: 'patient',
-  foreignKey: 'Patient_patientId_FK',
-  targetKey: 'patientId',
+  foreignKey: 'PatientId',
+  targetKey: 'PatientId',
 });

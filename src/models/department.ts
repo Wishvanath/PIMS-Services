@@ -15,33 +15,31 @@ interface DepartmentCreationAttributes
 export const Department: ModelDefined<
   DepartmentAttributes,
   DepartmentCreationAttributes
-> = sequelize.define('Department', {
-  departmentId: {
-    field: 'DepartmentId',
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+> = sequelize.define(
+  'Department',
+  {
+    departmentId: {
+      field: 'DepartmentId',
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    departmentName: {
+      field: 'DepartmentName',
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    departmentManager: {
+      field: 'DepartmentManager',
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
   },
-  departmentName: {
-    field: 'DepartmentName',
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-  departmentManager: {
-    field: 'DepartmentManager',
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-},
-{
+  {
     tableName: 'Department',
     timestamps: false,
-    indexes: [
-        {
-            unique: true,
-            fields: ['DepartmentId']
-        },
-    ],
-}
+  }
 );
+
+export default Department;

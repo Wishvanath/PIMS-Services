@@ -13,12 +13,12 @@ module.exports = {
         },
         insuranceCompany: {
           field: 'InsuranceCompany',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: false,
         },
         insurancePlan: {
           field: 'InsurancePlan',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(500),
           allowNull: true,
         },
         entryFee: {
@@ -38,7 +38,7 @@ module.exports = {
         },
         medCoverage: {
           field: 'MedCoverage',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
       },

@@ -1,5 +1,5 @@
 const TABLE_NAME = 'Lab';
-const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId_TestId`;
+const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId`;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -16,47 +16,47 @@ module.exports = {
           },
           testType: {
             field: 'TestType',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           height: {
             field: 'Height',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           weight: {
             field: 'Weight',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           date: {
             field: 'Date',
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: true,
           },
           bloodPressure: {
             field: 'BloodPressure',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           temp: {
             field: 'Temp',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           category: {
             field: 'Category',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           patientType: {
             field: 'PatientType',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           bloodType: {
             field: 'BloodType',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           patientId: {
@@ -75,7 +75,7 @@ module.exports = {
               model: 'TestPrice',
               key: 'TestId',
             },
-            allowNull: false,
+            allowNull: true,
           },
         },
         {
@@ -90,7 +90,7 @@ module.exports = {
         },
         {
           unique: true,
-          fields: ['PatientId', 'TestId'],
+          fields: ['PatientId'],
           name: UNIQUE_INDEX,
         },
         { transaction }
@@ -100,7 +100,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.removeIndex(TABLE_NAME, {
+      await queryInterface.removeIndex(TABLE_NAME, UNIQUE_INDEX, {
         transaction,
       });
       return queryInterface.dropTable({

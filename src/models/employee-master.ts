@@ -91,7 +91,7 @@ export const EmployeeMaster: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['EmployeeId'],
+        fields: ['DepartmentId'],
       },
     ],
   }
@@ -99,11 +99,11 @@ export const EmployeeMaster: ModelDefined<
 
 // create association
 Department.hasMany(EmployeeMaster, {
-  foreignKey: 'Department_departmentId_FK',
+  foreignKey: 'DepartmentId',
   sourceKey: 'DepartmentId',
 });
 EmployeeMaster.belongsTo(Department, {
   as: 'department',
-  foreignKey: 'Department_departmentId_FK',
+  foreignKey: 'DepartmentId',
   targetKey: 'DepartmentId',
 });

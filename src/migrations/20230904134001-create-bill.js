@@ -27,27 +27,27 @@ module.exports = {
           roomCharge: {
             field: 'RoomCharge',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           operationCharge: {
             field: 'OperationCharge',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           nursingCharge: {
             field: 'NursingCharge',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           labCharge: {
             field: 'LabCharge',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           advance: {
             field: 'Advance',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           patientId: {
             field: 'PatientId',
@@ -74,19 +74,6 @@ module.exports = {
             allowNull: false,
             onUpdate: 'casecade',
             onDelete: 'casecade',
-          },
-          createdAt: {
-            field: 'CreatedAt',
-            type: Sequelize.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.fn('now'),
-          },
-          updatedAt: {
-            field: 'UpdatedAt',
-            type: Sequelize.DATE,
-            allowNull: false,
-            defaultValue: Sequelize.fn('now'),
-            onUpdate: Sequelize.fn('now'),
           },
         },
         {

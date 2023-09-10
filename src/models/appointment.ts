@@ -81,7 +81,7 @@ export const Appointment: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['Id'],
+        fields: ['PatientId', 'DoctorId'],
       },
     ],
   }
@@ -89,21 +89,21 @@ export const Appointment: ModelDefined<
 
 // create association
 Patient.hasMany(Appointment, {
-  foreignKey: 'Patient_patientId_FK',
-  sourceKey: 'patientId',
+  foreignKey: 'PatientId',
+  sourceKey: 'PatientId',
 });
 Appointment.belongsTo(Patient, {
   as: 'patient',
-  foreignKey: 'Patient_patientId_FK',
-  targetKey: 'patientId',
+  foreignKey: 'PatientId',
+  targetKey: 'PatientId',
 });
 
 Doctor.hasMany(Appointment, {
-  foreignKey: 'Doctor_doctorId_FK',
-  sourceKey: 'doctorId',
+  foreignKey: 'DoctorId',
+  sourceKey: 'DoctorId',
 });
 Appointment.belongsTo(Doctor, {
   as: 'doctor',
-  foreignKey: 'Doctor_doctorId_FK',
-  targetKey: 'doctorId',
+  foreignKey: 'DoctorId',
+  targetKey: 'DoctorId',
 });

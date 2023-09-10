@@ -59,7 +59,7 @@ export const Lab: ModelDefined<LabAttributes, LabCreationAttributes> =
         allowNull: true,
       },
       temp: {
-        field: 'TestType',
+        field: 'Temp',
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -80,13 +80,13 @@ export const Lab: ModelDefined<LabAttributes, LabCreationAttributes> =
       },
       patientId: {
         field: 'PatientId',
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       testId: {
         field: 'TestId',
-        type: DataTypes.NUMBER,
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
     },
     {
@@ -95,7 +95,7 @@ export const Lab: ModelDefined<LabAttributes, LabCreationAttributes> =
       indexes: [
         {
           unique: true,
-          fields: ['Id', 'PatientId', 'TestId'],
+          fields: ['PatientId'],
         },
       ],
     }
@@ -103,21 +103,21 @@ export const Lab: ModelDefined<LabAttributes, LabCreationAttributes> =
 
 //   create association
 Patient.hasMany(Lab, {
-  foreignKey: 'Patient_patient_id_FK',
-  sourceKey: 'patientId',
+  foreignKey: 'PatientId',
+  sourceKey: 'PatientId',
 });
 Lab.belongsTo(Patient, {
   as: 'patient',
-  foreignKey: 'Patient_patient_id_FK',
-  targetKey: 'patientId',
+  foreignKey: 'PatientId',
+  targetKey: 'PatientId',
 });
 
 TestPrice.hasMany(Lab, {
-  foreignKey: 'TestPrice_testId_FK',
-  sourceKey: 'testId',
+  foreignKey: 'TestId',
+  sourceKey: 'TestId',
 });
 Lab.belongsTo(TestPrice, {
   as: 'testprice',
-  foreignKey: 'TestPrice_testId_FK',
-  targetKey: 'testId',
+  foreignKey: 'TestId',
+  targetKey: 'TestId',
 });

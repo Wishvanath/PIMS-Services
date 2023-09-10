@@ -12,8 +12,8 @@ interface TestPriceCreationAttributes
   extends Optional<TestPriceAttributes, 'testId'> {}
 
 export const TestPrice: ModelDefined<
-TestPriceAttributes,
-TestPriceCreationAttributes
+  TestPriceAttributes,
+  TestPriceCreationAttributes
 > = sequelize.define(
   'TestPrice',
   {
@@ -33,11 +33,5 @@ TestPriceCreationAttributes
   {
     tableName: 'TestPrice',
     timestamps: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['TestId'],
-      },
-    ],
   }
 );

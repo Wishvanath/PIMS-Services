@@ -107,3 +107,5 @@ EmployeeMaster.belongsTo(Department, {
   foreignKey: 'DepartmentId',
   targetKey: 'DepartmentId',
 });
+
+export default EmployeeMaster;

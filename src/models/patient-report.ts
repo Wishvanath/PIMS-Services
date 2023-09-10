@@ -29,7 +29,7 @@ export const PatientReport: ModelDefined<
     },
     diagnosis: {
       field: 'Diagnosis',
-      type: DataTypes.STRING(500),
+      type: DataTypes.STRING(1000),
       allowNull: true,
     },
     refrences: {
@@ -49,7 +49,7 @@ export const PatientReport: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['ReportId'],
+        fields: ['PatientId'],
       },
     ],
   }
@@ -57,11 +57,13 @@ export const PatientReport: ModelDefined<
 
 // create association
 Lab.hasMany(PatientReport, {
-  foreignKey: 'Lab_patientId_FK',
-  sourceKey: 'patientId',
+  foreignKey: 'PatientId',
+  sourceKey: 'PatientId',
 });
 PatientReport.belongsTo(Lab, {
   as: 'lab',
-  foreignKey: 'Lab_patientId_FK',
-  targetKey: 'patientId',
+  foreignKey: 'PatientId',
+  targetKey: 'PatientId',
 });
+
+export default PatientReport;

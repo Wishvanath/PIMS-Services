@@ -39,7 +39,7 @@ export const Medicine: ModelDefined<
     },
     medicineDescp: {
       field: 'MedicineDescp',
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(1000),
       allowNull: true,
     },
     medicinePrice: {
@@ -51,11 +51,7 @@ export const Medicine: ModelDefined<
   {
     tableName: 'Medicine',
     timestamps: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['MedicineId'], // no need to add unique just remove
-      },
-    ],
   }
 );
+
+export default Medicine;

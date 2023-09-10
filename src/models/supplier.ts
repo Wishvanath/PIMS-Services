@@ -51,11 +51,5 @@ export const Supplier: ModelDefined<
   {
     tableName: 'Supplier',
     timestamps: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['SupplierId'],
-      },
-    ],
   }
 );

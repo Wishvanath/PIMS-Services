@@ -29,8 +29,8 @@ module.exports = {
           field: 'ReportId',
           type: Sequelize.INTEGER,
           references: {
-            model: 'Reports',
-            key: 'id',
+            model: 'PatientReport',
+            key: 'ReportId',
           },
           allowNull: false,
         },

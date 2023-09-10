@@ -80,7 +80,7 @@ export const MedicineReport: ModelDefined<
     indexes: [
       {
         unique: false,
-        fields: ['Id'],
+        fields: ['SupplierId', 'MedicineId'],
       },
     ],
   }
@@ -88,21 +88,21 @@ export const MedicineReport: ModelDefined<
 
 // create association
 Supplier.hasMany(MedicineReport, {
-  foreignKey: 'Supplier_supplierId_FK',
-  sourceKey: 'supplierId',
+  foreignKey: 'SupplierId',
+  sourceKey: 'SupplierId',
 });
 MedicineReport.belongsTo(Supplier, {
   as: 'supplier',
-  foreignKey: 'Supplier_supplierId_FK',
-  targetKey: 'supplierId',
+  foreignKey: 'SupplierId',
+  targetKey: 'SupplierId',
 });
 
 Medicine.hasMany(MedicineReport, {
-  foreignKey: 'Medicine_medicineId_FK',
-  sourceKey: 'medicineId',
+  foreignKey: 'MedicineId',
+  sourceKey: 'MedicineId',
 });
 MedicineReport.belongsTo(Medicine, {
   as: 'medicine',
-  foreignKey: 'Medicine_medicineId_FK',
-  targetKey: 'medicineId',
+  foreignKey: 'MedicineId',
+  targetKey: 'MedicineId',
 });

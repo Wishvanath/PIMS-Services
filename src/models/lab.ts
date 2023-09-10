@@ -121,3 +121,5 @@ Lab.belongsTo(TestPrice, {
   foreignKey: 'TestId',
   targetKey: 'TestId',
 });
+
+export default Lab;

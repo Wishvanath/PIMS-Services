@@ -53,7 +53,7 @@ export const Patient: ModelDefined<
     },
     address: {
       field: 'Address',
-      type: DataTypes.STRING(500),
+      type: DataTypes.STRING(1000),
       allowNull: true,
     },
     dob: {
@@ -68,19 +68,14 @@ export const Patient: ModelDefined<
     },
     email: {
       field: 'Email',
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: true,
+      unique:true,
     },
   },
   {
     tableName: 'Patient',
     timestamps: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['PatientId'], // need to remove indexes
-      },
-    ],
   }
 );
 

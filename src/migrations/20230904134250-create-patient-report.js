@@ -16,12 +16,12 @@ module.exports = {
           },
           diagnosis: {
             field: 'Diagnosis',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(1000),
             allowNull: true,
           },
           refrences: {
             field: 'Refrences',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           patientId: {
@@ -47,7 +47,7 @@ module.exports = {
         },
         {
           unique: true,
-          field: 'PatientId',
+          fields: ['PatientId'],
           name: UNIQUE_INDEX,
         }
       );
@@ -56,7 +56,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.sequelize.removeIndex(TABLE_NAME, {
+      await queryInterface.sequelize.removeIndex(TABLE_NAME, UNIQUE_INDEX, {
         transaction,
       });
       return queryInterface.dropTable({

@@ -14,17 +14,17 @@ module.exports = {
         },
         medicineName: {
           field: 'MedicineName',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
         medicineType: {
           field: 'MedicineType',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
         medicineDescp: {
           field: 'MedicineDescp',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(1000),
           allowNull: true,
         },
         medicinePrice: {

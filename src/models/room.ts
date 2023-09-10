@@ -42,11 +42,5 @@ export const Room: ModelDefined<RoomAttributes, RoomCreationAttributes> =
     {
       tableName: 'Room',
       timestamps: false,
-      indexes: [
-        {
-          unique: true,
-          fields: ['Id'],
-        },
-      ],
     }
   );

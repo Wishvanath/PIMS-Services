@@ -12,7 +12,7 @@ export interface PayrollAttributes {
   bonusSalary: number;
   compensation: number;
   bankName: string;
-  accountNo: number;
+  accountNo: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -69,8 +69,9 @@ export const Payroll: ModelDefined<
     },
     accountNo: {
       field: 'AccountNo',
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(255),
       allowNull: true,
+      unique: true,
     },
   },
   {
@@ -79,7 +80,7 @@ export const Payroll: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['PayrollId', 'EmployeeId'],// remove index
+        fields: ['EmployeeId'],
       },
     ],
   }
@@ -87,11 +88,11 @@ export const Payroll: ModelDefined<
 
 // create associations
 EmployeeMaster.hasMany(Payroll, {
-  foreignKey: 'EmployeeMaster_employeeId_FK',
-  sourceKey: 'employeeId',
+  foreignKey: 'EmployeeId',
+  sourceKey: 'EmployeeId',
 });
 Payroll.belongsTo(EmployeeMaster, {
   as: 'employeemaster',
-  foreignKey: 'EmployeeMaster_employeeId_FK',
-  targetKey: 'employeeId',
+  foreignKey: 'EmployeeId',
+  targetKey: 'EmployeeId',
 });

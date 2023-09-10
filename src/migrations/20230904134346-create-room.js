@@ -13,7 +13,7 @@ module.exports = {
         },
         roomType: {
           field: 'RoomType',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
         noOfBed: {
@@ -23,7 +23,7 @@ module.exports = {
         },
         status: {
           field: 'Status',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
       },

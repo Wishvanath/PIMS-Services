@@ -15,7 +15,7 @@ module.exports = {
           },
           company: {
             field: 'Company',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           quantity: {
@@ -30,17 +30,17 @@ module.exports = {
           },
           productionDate: {
             field: 'ProductionDate',
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: true,
           },
           expiryDate: {
             field: 'ExpiryDate',
-            type: Sequelize.DATE,
+            type: Sequelize.DATE(6),
             allowNull: true,
           },
           country: {
             field: 'Country',
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(255),
             allowNull: true,
           },
           supplierId: {
@@ -84,7 +84,7 @@ module.exports = {
 
   down: async (queryInterface) => {
     queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.sequelize.removeIndex(TABLE_NAME, {
+      await queryInterface.sequelize.removeIndex(TABLE_NAME, UNIQUE_INDEX, {
         transaction,
       });
       return queryInterface.dropTable({

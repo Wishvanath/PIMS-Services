@@ -1,5 +1,5 @@
 const TABLE_NAME = 'Payroll';
-// const UNIQUE_INDEX = `$IX_${TABLE_NAME}_EmployeeId`;
+const UNIQUE_INDEX = `$IX_${TABLE_NAME}_EmployeeId`;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -8,49 +8,58 @@ module.exports = {
         TABLE_NAME,
         {
           payrollId: {
+            field: 'PayrollId',
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false,
           },
           employeeId: {
+            field: 'EmployeeId',
             type: Sequelize.INTEGER,
             allowNull: false,
-            unique: true,
             references: {
-              model: 'EmployeeMasters',
-              key: 'employeeId',
+              model: 'EmployeeMaster',
+              key: 'EmployeeId',
             },
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           salary: {
+            field: 'Salary',
             type: Sequelize.FLOAT,
             allowNull: false,
           },
           netSalary: {
+            field: 'NetSalary',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           hourlySalary: {
+            field: 'HourlySalary',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           bonusSalary: {
+            field: 'BonusSalary',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           compensation: {
+            field: 'Compensation',
             type: Sequelize.FLOAT,
-            allowNull: false,
+            allowNull: true,
           },
           bankName: {
-            type: Sequelize.STRING,
-            allowNull: false,
+            field: 'BankName',
+            type: Sequelize.STRING(255),
+            allowNull: true,
           },
           accountNo: {
-            type: Sequelize.STRING, // Change the data type to fit your needs
-            allowNull: false,
+            field: 'AccountNo',
+            type: Sequelize.STRING(255),
+            allowNull: true,
+            unique: true,
           },
         },
         {
@@ -59,10 +68,29 @@ module.exports = {
         },
         { transaction }
       );
+
+      await queryInterface.addIndex(
+        {
+          tableName: TABLE_NAME,
+        },
+        {
+          unique: true,
+          fields: ['EmployeeId'],
+          name: UNIQUE_INDEX,
+        }
+      );
     });
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Payrolls');
+    queryInterface.sequelize.transaction(async (transaction) => {
+      await queryInterface.removeIndex(TABLE_NAME, UNIQUE_INDEX, {
+        transaction,
+      });
+
+      return queryInterface.dropTable({
+        tableName: TABLE_NAME,
+      });
+    });
   },
 };

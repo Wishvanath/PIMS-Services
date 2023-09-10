@@ -13,22 +13,23 @@ module.exports = {
         },
         supplierName: {
           field: 'SupplierName',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
         },
         phone: {
           field: 'Phone',
-          type: Sequelize.INTEGER,
+          type: Sequelize.INTEGER(10),
           allowNull: true,
         },
         email: {
           field: 'Email',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(255),
           allowNull: true,
+          unique:true,
         },
         address: {
           field: 'Address',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(1000),
           allowNull: true,
         },
       },

@@ -58,22 +58,22 @@ export const PrescribedMedicine: ModelDefined<
 
 // create assocations
 PatientReport.hasMany(PrescribedMedicine, {
-  foreignKey: 'PatientReport_reportId_FK',
-  sourceKey: 'reportId',
+  foreignKey: 'ReportId',
+  sourceKey: 'ReportId',
 });
 PrescribedMedicine.belongsTo(PatientReport, {
   as: 'patientreport',
-  foreignKey: 'PatientReport_reportId_FK',
-  targetKey: 'reportId',
+  foreignKey: 'ReportId',
+  targetKey: 'ReportId',
 });
 
 
 Medicine.hasMany(PrescribedMedicine, {
-  foreignKey: 'Medicine_medicineId_FK',
-  sourceKey: 'medicineId',
+  foreignKey: 'MedicineId',
+  sourceKey: 'MedicineId',
 });
 PrescribedMedicine.belongsTo(Medicine, {
   as: 'medicine',
-  foreignKey: 'Medicine_medicineId_FK',
-  targetKey: 'medicineId',
+  foreignKey: 'MedicineId',
+  targetKey: 'MedicineId',
 });

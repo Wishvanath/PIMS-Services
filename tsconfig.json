@@ -13,13 +13,13 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    // "types": [
-    //   "node",
-    //   "morgan",
-    //   "express",
-    //   "cors",
-    //   "jest"
-    // ],
+    "types": [
+      "node",
+      // "morgan",
+      "express",
+      // "cors",
+      "jest"
+    ],
   },
   "ts-node": {
     "esm": true,

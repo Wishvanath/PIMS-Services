@@ -10,11 +10,11 @@
         "airbnb-typescript/base"
     ],
     "parserOptions": {
-        "project" : "./tsconfig.eslint.json"
+        "project" : "./tsconfig.json"
     },
     "overrides": [
         {
-            "files": ["@.test.js"],
+            "files": ["*.test.js"],
             "rules": {
                 "no-console": "off"
             }
@@ -22,7 +22,7 @@
     ],
     "env": {
         "browser": true,
-        "jest" : true,
+        "jest" : true
     },
     "globals": {
         "shallow": false,
@@ -30,7 +30,6 @@
         "mount" : false
     },
     "rules": {
-        // "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-use-before-define" : "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires" :0,
@@ -38,12 +37,12 @@
             "error",
             {
                 "types": {
-                    "string": false,
+                    "String": false,
                     "Boolean": false,
                     "Number" : false,
                     "Symbol" : false,
                     "{}" : false,
-                    "object" : false,
+                    "Object" : false,
                     "Function" : false
                 },
                 "extendDefaults": true

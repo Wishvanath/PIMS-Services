@@ -1,5 +1,5 @@
-const TABLE_NAME = 'Insurance';
-const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId_InsuranceCode`;
+const TABLE_NAME = 'Lab';
+const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId`;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,39 +7,55 @@ module.exports = {
       await queryInterface.createTable(
         TABLE_NAME,
         {
-          insuranceId: {
-            field: 'InsuranceId',
+          id: {
+            field: 'Id',
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-          },
-          publishDate: {
-            field: 'PublishDate',
-            type: Sequelize.DATE(6),
             allowNull: false,
           },
-          expiryDate: {
-            field: 'ExpiryDate',
+          testType: {
+            field: 'TestType',
+            type: Sequelize.STRING(255),
+            allowNull: true,
+          },
+          height: {
+            field: 'Height',
+            type: Sequelize.STRING(255),
+            allowNull: true,
+          },
+          weight: {
+            field: 'Weight',
+            type: Sequelize.STRING(255),
+            allowNull: true,
+          },
+          date: {
+            field: 'Date',
             type: Sequelize.DATE(6),
-            allowNull: false,
+            allowNull: true,
           },
-          maternity: {
-            field: 'Maternity',
+          bloodPressure: {
+            field: 'BloodPressure',
             type: Sequelize.STRING(255),
             allowNull: true,
           },
-          dental: {
-            field: 'Dental',
+          temp: {
+            field: 'Temp',
             type: Sequelize.STRING(255),
             allowNull: true,
           },
-          optional: {
-            field: 'Optional',
+          category: {
+            field: 'Category',
             type: Sequelize.STRING(255),
             allowNull: true,
           },
-          chronicPatient: {
-            field: 'ChronicPatient',
+          patientType: {
+            field: 'PatientType',
+            type: Sequelize.STRING(255),
+            allowNull: true,
+          },
+          bloodType: {
+            field: 'BloodType',
             type: Sequelize.STRING(255),
             allowNull: true,
           },
@@ -54,12 +70,12 @@ module.exports = {
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
-          insuranceCode: {
-            field: 'InsuranceCode',
+          testId: {
+            field: 'TestId',
             type: Sequelize.INTEGER,
             references: {
-              model: 'InsuranceCover',
-              key: 'InsuranceCode',
+              model: 'TestPrice',
+              key: 'TestId',
             },
             allowNull: false,
             onUpdate: 'CASCADE',
@@ -67,7 +83,7 @@ module.exports = {
           },
         },
         {
-          timestamps: false,
+          timestamps: true,
           freezeTableName: true,
         },
         { transaction }
@@ -78,7 +94,7 @@ module.exports = {
         },
         {
           unique: true,
-          fields: ['PatientId', 'InsuranceCode'],
+          fields: ['PatientId'],
           name: UNIQUE_INDEX,
         },
         { transaction }

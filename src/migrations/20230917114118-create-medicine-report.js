@@ -12,6 +12,7 @@ module.exports = {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
           },
           company: {
             field: 'Company',
@@ -30,12 +31,12 @@ module.exports = {
           },
           productionDate: {
             field: 'ProductionDate',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: true,
           },
           expiryDate: {
             field: 'ExpiryDate',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: true,
           },
           country: {
@@ -51,6 +52,8 @@ module.exports = {
               key: 'SupplierId',
             },
             allowNull: false,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           medicineId: {
             field: 'MedicineId',
@@ -60,6 +63,8 @@ module.exports = {
               key: 'MedicineId',
             },
             allowNull: false,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         },
         {

@@ -59,8 +59,8 @@ module.exports = {
               key: 'PatientId',
             },
             allowNull: false,
-            onUpdate: 'casecade',
-            onDelete: 'casecade',
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
           insuranceId: {
             field: 'InsuranceId',
@@ -72,8 +72,8 @@ module.exports = {
               key: 'InsuranceId',
             },
             allowNull: false,
-            onUpdate: 'casecade',
-            onDelete: 'casecade',
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         },
         {

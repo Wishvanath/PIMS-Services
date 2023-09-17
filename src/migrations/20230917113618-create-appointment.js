@@ -34,24 +34,24 @@ module.exports = {
           },
           createdDate: {
             field: 'CreatedDate',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: false,
-            defaultValue: Sequelize.fn('now'),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
           },
           updatedDate: {
             field: 'UpdatedDate',
-            type: Sequelize.DATE(6),
-            defaultValue: Sequelize.fn('now'),
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false,
           },
           date: {
             field: 'Date',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: false,
           },
           time: {
             field: 'Time',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: false,
           },
           appointmentDescp: {

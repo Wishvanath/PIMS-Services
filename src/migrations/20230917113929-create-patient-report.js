@@ -32,6 +32,8 @@ module.exports = {
               key: 'PatientId',
             },
             allowNull: false,
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         },
         {

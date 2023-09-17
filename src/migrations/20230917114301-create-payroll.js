@@ -17,11 +17,11 @@ module.exports = {
           employeeId: {
             field: 'EmployeeId',
             type: Sequelize.INTEGER,
-            allowNull: false,
             references: {
               model: 'EmployeeMaster',
               key: 'EmployeeId',
             },
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
@@ -77,7 +77,8 @@ module.exports = {
           unique: true,
           fields: ['EmployeeId'],
           name: UNIQUE_INDEX,
-        }
+        },
+        { transaction }
       );
     });
   },

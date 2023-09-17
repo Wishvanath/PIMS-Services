@@ -36,7 +36,7 @@ module.exports = {
           },
           dob: {
             field: 'Dob',
-            type: Sequelize.DATE(6),
+            type: Sequelize.DATE,
             allowNull: false,
           },
           gender: {
@@ -70,8 +70,8 @@ module.exports = {
               key: 'DepartmentId',
             },
             allowNull: false,
-            onUpdate: 'casecade',
-            onDelete: 'casecade',
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         },
         {

@@ -37,7 +37,7 @@ module.exports = {
       },
       dob: {
         field: 'Dob',
-        type: Sequelize.DATE(6),
+        type: Sequelize.DATE,
         allowNull: true,
       },
       phone: {

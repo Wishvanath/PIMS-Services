@@ -12,7 +12,7 @@ export interface EmployeeMasterAttributes {
   dob: Date;
   gender: string;
   address: string;
-  phone: number;
+  phone: string;
   email: string;
   departmentId: number;
 }
@@ -71,7 +71,7 @@ export const EmployeeMaster: ModelDefined<
     },
     phone: {
       field: 'Phone',
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     email: {

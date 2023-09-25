@@ -9,6 +9,8 @@ module.exports = async () => {
             password: 'admin',
             database: 'pims',
             migrationStorageTableName: 'dbMigrations',
+            seederStorage: 'sequelize',
+            seederStorageTableName: 'dbSeeder',
             pool: {
                 max: 5,
                 min: 0,

@@ -5,7 +5,7 @@ import { sequelize } from '.';
 export interface SupplierAttributes {
   supplierId: number;
   supplierName: string;
-  phone: number;
+  phone: string;
   email: string;
   address: string;
 }
@@ -34,7 +34,7 @@ export const Supplier: ModelDefined<
     },
     phone: {
       field: 'Phone',
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     email: {

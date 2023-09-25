@@ -7,7 +7,7 @@ export interface DoctorAttributes {
   firstName: string;
   lastName: string;
   gender: string;
-  phone: number;
+  phone: string;
   address: string;
   email: string;
 }
@@ -43,7 +43,7 @@ export const Doctor: ModelDefined<DoctorAttributes, DoctorCreationAttributes> =
       },
       phone: {
         field: 'Phone',
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(50),
         allowNull: true,
       },
       address: {

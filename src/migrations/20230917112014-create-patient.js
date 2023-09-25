@@ -42,7 +42,7 @@ module.exports = {
       },
       phone: {
         field: 'Phone',
-        type: Sequelize.INTEGER(10),
+        type: Sequelize.STRING(50),
         allowNull: true,
       },
       email: {

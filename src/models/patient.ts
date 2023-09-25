@@ -10,7 +10,7 @@ export interface PatientAttributes {
   gender: string;
   address: string;
   dob: Date;
-  phone: number;
+  phone: string;
   email: string;
 }
 
@@ -63,7 +63,7 @@ export const Patient: ModelDefined<
     },
     phone: {
       field: 'Phone',
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
     email: {

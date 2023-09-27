@@ -1,7 +1,7 @@
 import { DataTypes, Optional, ModelDefined } from 'sequelize';
 import { sequelize } from '.';
 import { Patient } from './patient';
-import { Doctor } from './doctor';
+// import { Doctor } from './doctor';
 
 // create interface for appointment table column
 export interface AppointmentAttributes {
@@ -45,23 +45,24 @@ export const Appointment: ModelDefined<
     },
     createdDate: {
       field: 'CreatedDate',
-      type: DataTypes.DATE(6),
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     updatedDate: {
       field: 'UpdatedDate',
-      type: DataTypes.DATE(6),
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
     date: {
       field: 'Date',
-      type: DataTypes.DATE(6),
+      type: DataTypes.DATE,
       allowNull: false,
     },
     time: {
       field: 'Time',
-      type: DataTypes.DATE(6),
+      type: DataTypes.DATE,
       allowNull: false,
     },
     appointmentDescp: {
@@ -81,7 +82,7 @@ export const Appointment: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['PatientId', 'DoctorId'],
+        fields: ['PatientId'],
       },
     ],
   }
@@ -89,21 +90,23 @@ export const Appointment: ModelDefined<
 
 // create association
 Patient.hasMany(Appointment, {
+  as:'patient',
   foreignKey: 'PatientId',
-  sourceKey: 'PatientId',
+  // sourceKey: 'PatientId',
 });
 Appointment.belongsTo(Patient, {
   as: 'patient',
   foreignKey: 'PatientId',
-  targetKey: 'PatientId',
+  // targetKey: 'PatientId',
 });
 
-Doctor.hasMany(Appointment, {
-  foreignKey: 'DoctorId',
-  sourceKey: 'DoctorId',
-});
-Appointment.belongsTo(Doctor, {
-  as: 'doctor',
-  foreignKey: 'DoctorId',
-  targetKey: 'DoctorId',
-});
+// Doctor.hasMany(Appointment, {
+//   as: 'doctor',
+//   foreignKey: 'DoctorId',
+//   // sourceKey: 'Id',
+// });
+// Appointment.belongsTo(Doctor, {
+//   as: 'doctor',
+//   foreignKey: 'Id',
+//   // targetKey: 'DoctorId',
+// });

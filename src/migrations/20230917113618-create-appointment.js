@@ -1,5 +1,5 @@
 const TABLE_NAME = 'Appointment';
-const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId_DoctorId`;
+const UNIQUE_INDEX = `$IX_${TABLE_NAME}_PatientId`;
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -62,15 +62,15 @@ module.exports = {
           doctorId: {
             field: 'DoctorId',
             type: Sequelize.INTEGER,
-            references: {
-              model: {
-                tableName: 'Doctor',
-              },
-              key: 'Id',
-            },
+            // references: {
+            //   model: {
+            //     tableName: 'Doctor',
+            //   },
+            //   key: 'Id',
+            // },
             allowNull: false,
-            onUpdate: 'cascade',
-            onDelete: 'cascade',
+            // onUpdate: 'cascade',
+            // onDelete: 'cascade',
           },
         },
         {
@@ -85,7 +85,7 @@ module.exports = {
         },
         {
           unique: true,
-          fields: ['PatientId', 'DoctorId'],
+          fields: ['PatientId'],
           name: UNIQUE_INDEX,
         },
         { transaction }

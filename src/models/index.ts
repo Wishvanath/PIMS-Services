@@ -14,7 +14,7 @@ const sequelize = new Sequelize('', '', '', {
       configuration.database = c[env].database;
     },
   },
-  logging: false,
+  logging: true,
 });
 
 export { sequelize, Sequelize };

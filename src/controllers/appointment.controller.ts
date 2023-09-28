@@ -27,24 +27,19 @@ export const createAppointment = async (
         const parseBody = await parseCreateRequestBody(req);
         validateWithSchema(createAppointmentSchema, parseBody);
 
-        // const {
-        //     firstName,
-        //     lastName,
-        //     nationality,
-        //     gender,
-        //     address,
-        //     dob,
-        //     phone,
-        //     email
-        // } = parseBody
-
-        console.log("Parse Body ========>", parseBody);
+        // check if has dublicate entries
+        const hasDublicateEntries = await appointmentService.validateDublicateEntries(
+            parseBody.phone,
+        );
+        if (hasDublicateEntries) {
+            throw new ConflictError(hasDublicateEntries.response);
+        }
 
         const result = await appointmentService.createAppointment(parseBody);
-
         return res.status(result.statusCode).json(result.response);
         
     } catch (error) {
         return next(error)
     }
 }
+

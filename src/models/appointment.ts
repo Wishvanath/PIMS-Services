@@ -36,7 +36,15 @@ export const Appointment: ModelDefined<
     patientId: {
       field: 'PatientId',
       type: DataTypes.INTEGER,
+        references: {
+            model:{
+                tableName: 'Patient',
+            },
+            key: 'PatientId',
+        },
       allowNull: false,
+      onUpdate: 'cascade',
+      onDelete: 'cascade',
     },
     type: {
       field: 'Type',
@@ -47,7 +55,7 @@ export const Appointment: ModelDefined<
       field: 'CreatedDate',
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
     },
     updatedDate: {
       field: 'UpdatedDate',
@@ -90,14 +98,12 @@ export const Appointment: ModelDefined<
 
 // create association
 Patient.hasMany(Appointment, {
-  as:'patient',
-  foreignKey: 'PatientId',
-  // sourceKey: 'PatientId',
+  foreignKey: 'patientId',
+  sourceKey: 'patientId',
 });
 Appointment.belongsTo(Patient, {
-  as: 'patient',
-  foreignKey: 'PatientId',
-  // targetKey: 'PatientId',
+  foreignKey: 'patientId',
+  targetKey: 'patientId',
 });
 
 // Doctor.hasMany(Appointment, {

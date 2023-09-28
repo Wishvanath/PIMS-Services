@@ -98,10 +98,12 @@ export const Appointment: ModelDefined<
 
 // create association
 Patient.hasMany(Appointment, {
+  as: 'appointment',
   foreignKey: 'patientId',
   sourceKey: 'patientId',
 });
 Appointment.belongsTo(Patient, {
+  as: 'patient',
   foreignKey: 'patientId',
   targetKey: 'patientId',
 });

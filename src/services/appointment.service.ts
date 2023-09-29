@@ -101,18 +101,20 @@ export const validateDublicateEntries = async (phone: string) => {
       where: {
         phone,
       },
-      attributes: ['firstName', 'email', 'dob', 'phone'],
+      attributes: ['firstName'],
       raw: true,
     });
     if (result.length) {
       const existingData = JSON.stringify(result);
+      console.log("Existing data: =======>",existingData);
       return {
         statusCode: 409,
-        response: `${existingData} already exists`,
+        response: 'Dublicate entries',
       };
     }
     return null;
   } catch (error: any) {
+    console.log("Error:===========>",error);
     throw new DatabaseError(error);
   }
 };

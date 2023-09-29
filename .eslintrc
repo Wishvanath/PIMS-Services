@@ -1,83 +1,83 @@
-{
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint", "import", "prettier"],
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended",
-        "airbnb",
-        "airbnb-typescript/base"
-    ],
-    "parserOptions": {
-        "project" : "./tsconfig.json"
-    },
-    "overrides": [
-        {
-            "files": ["*.test.js"],
-            "rules": {
-                "no-console": "off"
-            }
-        }
-    ],
-    "env": {
-        "browser": true,
-        "jest" : true
-    },
-    "globals": {
-        "shallow": false,
-        "render" : false,
-        "mount" : false
-    },
-    "rules": {
-        "@typescript-eslint/no-use-before-define" : "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-var-requires" :0,
-        "@typescript-eslint/ban-types":[
-            "error",
-            {
-                "types": {
-                    "String": false,
-                    "Boolean": false,
-                    "Number" : false,
-                    "Symbol" : false,
-                    "{}" : false,
-                    "Object" : false,
-                    "Function" : false
-                },
-                "extendDefaults": true
-            }
-        ],
-        "@typescript-eslint/ban-ts-comment": "off",
-        "import/extensions" : [
-            "error",
-            "ignorePackages",
-            {
-                "js" : "never",
-                "ts" : "never"
-            }
-        ],
-        "max-len": ["error",{"code": 200}],
-        "import/prefer-default-export": "off",
-        "no-param-reassign": 0,
-        "no-console": "off",
-        "max-classes-per-file": ["error", 10],
-        "indent": "off",
-        "@typescript-eslint/indent": "off",
-        "@typescript-eslint/comma-dangle": "off",
-        "object-curly-newline": "off",
-        "implicit-arrow-linebreak": "off",
-        "operator-linebreak": "off",
-        "import/no-extraneous-dependencies": "off",
-        "import/no-unresolved": "off",
-        "global-require": "off",
-        "consistent-return": "off",
-        "prefer-template": "off",
-        "@typescript-eslint/no-empty-function" : "off",
-        "linebreak-style": "off",
-        "prettier/prettier" : "off",
-        "no-underscore-dangle": "off",
-        "function-paren-newline": "off"
+// {
+//     "root": true,
+//     "parser": "@typescript-eslint/parser",
+//     "plugins": ["@typescript-eslint", "import", "prettier"],
+//     "extends": [
+//         "eslint:recommended",
+//         "plugin:@typescript-eslint/recommended",
+//         "plugin:prettier/recommended",
+//         "airbnb",
+//         "airbnb-typescript/base"
+//     ],
+//     "parserOptions": {
+//         "project" : "./tsconfig.json"
+//     },
+//     "overrides": [
+//         {
+//             "files": ["*.test.js"],
+//             "rules": {
+//                 "no-console": "off"
+//             }
+//         }
+//     ],
+//     "env": {
+//         "browser": true,
+//         "jest" : true
+//     },
+//     "globals": {
+//         "shallow": false,
+//         "render" : false,
+//         "mount" : false
+//     },
+//     "rules": {
+//         "@typescript-eslint/no-use-before-define" : "off",
+//         "@typescript-eslint/no-explicit-any": "off",
+//         "@typescript-eslint/no-var-requires" :0,
+//         "@typescript-eslint/ban-types":[
+//             "error",
+//             {
+//                 "types": {
+//                     "String": false,
+//                     "Boolean": false,
+//                     "Number" : false,
+//                     "Symbol" : false,
+//                     "{}" : false,
+//                     "Object" : false,
+//                     "Function" : false
+//                 },
+//                 "extendDefaults": true
+//             }
+//         ],
+//         "@typescript-eslint/ban-ts-comment": "off",
+//         "import/extensions" : [
+//             "error",
+//             "ignorePackages",
+//             {
+//                 "js" : "never",
+//                 "ts" : "never"
+//             }
+//         ],
+//         "max-len": ["error",{"code": 200}],
+//         "import/prefer-default-export": "off",
+//         "no-param-reassign": 0,
+//         "no-console": "off",
+//         "max-classes-per-file": ["error", 10],
+//         "indent": "off",
+//         "@typescript-eslint/indent": "off",
+//         "@typescript-eslint/comma-dangle": "off",
+//         "object-curly-newline": "off",
+//         "implicit-arrow-linebreak": "off",
+//         "operator-linebreak": "off",
+//         "import/no-extraneous-dependencies": "off",
+//         "import/no-unresolved": "off",
+//         "global-require": "off",
+//         "consistent-return": "off",
+//         "prefer-template": "off",
+//         "@typescript-eslint/no-empty-function" : "off",
+//         "linebreak-style": "off",
+//         "prettier/prettier" : "off",
+//         "no-underscore-dangle": "off",
+//         "function-paren-newline": "off"
 
-    }
-}
+//     }
+// }

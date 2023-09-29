@@ -7,7 +7,7 @@ import {
 } from '../utils/gateway-helper';
 import {
   ClientInputError,
-  NotFoundError,
+  // NotFoundError,
   ConflictError,
 } from '../utils/error-handler';
 import { validateWithSchema } from '../utils/input.validator';

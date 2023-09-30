@@ -55,7 +55,7 @@ export const createAppointment = async (payload: any) => {
           statusCode: 200,
           response: {
             message: 'Appointment created successfully.',
-            patientId: patientResult.patientId,
+            patientId: appointmentResult.patientId,
             data: appointmentResult,
           },
         };

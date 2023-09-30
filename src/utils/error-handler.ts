@@ -5,7 +5,8 @@ export class RuntimeError extends Error {
   constructor(message: string, error: Error) {
     super(message);
     this.status = 500;
-    (this.name = 'RuntimeError'), (this.innerError = error);
+    this.name = 'RuntimeError';
+    this.innerError = error;
   }
 }
 
@@ -18,7 +19,7 @@ export class DatabaseError extends Error {
     this.name = error.name || 'DatabaseError';
 
     if (error.original) {
-      this.stack = error.error.original;
+      this.stack = error.original;
     } else {
       this.stack = error.stack;
     }
@@ -37,7 +38,7 @@ export class ClientInputError extends Error {
 export class NotFoundError extends Error {
   public status;
   constructor(message: string) {
-    super(message);
+    super(message || 'Not found');
     this.status = 404;
     this.name = 'NotFoundError';
   }

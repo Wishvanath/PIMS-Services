@@ -7,38 +7,53 @@ import {
 import * as appointmentService from '../services/appointment.service';
 import * as appointmentController from '../controllers/appointment.controller';
 
-describe('Appointment Controller', () => {
+describe('Appointment Controller Test', () => {
+  const mockFirstName = 'test';
+  const mockLastName = 'test';
+  const mockNationality = 'test';
+  const mockGender = 'Male';
+  const mockAddress = 'test';
+  const mockDob = '1992-01-31 18:30:00.000';
+  const mockPhone = '9999999999';
+  const mockEmail = 'test@gmail.com';
+  const mockType = 'test';
+  const mockDate = '2023-09-30T17:43:59.397Z';
+  const mockTime = '2023-09-30T17:43:59.397Z';
+  const mockAppointmentDescp = 'test';
+  const mockPatientId = 1;
+  const mockDoctorId = 1;
+
   describe('createAppointment', () => {
     const mockRequest = {
-      firstName: 'Wishnu',
-      lastName: 'Sah',
-      nationality: 'Indian',
-      gender: 'Male',
-      address: 'VIll- Ransi, Post- Kaithia',
-      dob: '1992/08/01',
-      phone: '9939940238',
-      email: 'anandwishvanath8@gmail.com',
-      type: 'Clinical',
-      date: '2023/01/01',
-      time: '2023/01/01',
-      appointmentDescp: 'Heart disease',
-      doctorId: 1,
+      firstName: mockFirstName,
+      lastName: mockLastName,
+      nationality: mockNationality,
+      gender: mockGender,
+      address: mockAddress,
+      dob: mockDob,
+      phone: mockPhone,
+      email: mockEmail,
+      type: mockType,
+      date: mockDate,
+      time: mockTime,
+      appointmentDescp: mockAppointmentDescp,
+      doctorId: mockDoctorId,
     };
     const mockResponse: any = {
       statusCode: 200,
       response: {
         message: 'Appointment created successfully.',
-        patientId: 1,
+        patientId: mockPatientId,
         data: {
           createdDate: '2023-09-29T20:45:08.776Z',
           updatedDate: '2023-09-29T20:45:08.776Z',
           id: 1,
-          type: 'Clinical',
-          date: '2022-12-31T18:30:00.000Z',
-          time: '2022-12-31T18:30:00.000Z',
-          appointmentDescp: 'Heart disease',
-          doctorId: 1,
-          patientId: 1,
+          type: mockType,
+          date: mockDate,
+          time: mockTime,
+          appointmentDescp: mockAppointmentDescp,
+          doctorId: mockDoctorId,
+          patientId: mockPatientId,
         },
       },
     };
@@ -51,18 +66,18 @@ describe('Appointment Controller', () => {
       const req = httpMocks.createRequest({
         headers: { 'content-type': 'application/json' },
         body: {
-          lastName: 'Sah',
-          nationality: 'Indian',
-          gender: 'Male',
-          address: 'VIll- Ransi, Post- Kaithia',
-          dob: '1992/08/01',
-          phone: '9939940238',
-          email: 'anandwishvanath8@gmail.com',
-          type: 'Clinical',
-          date: '2023/01/01',
-          time: '2023/01/01',
-          appointmentDescp: 'Heart disease',
-          doctorId: 2,
+          lastName: mockLastName,
+          nationality: mockNationality,
+          gender: mockGender,
+          address: mockAddress,
+          dob: mockDob,
+          phone: mockPhone,
+          email: mockEmail,
+          type: mockType,
+          date: mockDate,
+          time: mockTime,
+          appointmentDescp: mockAppointmentDescp,
+          doctorId: mockDoctorId,
         },
       });
 
@@ -76,7 +91,7 @@ describe('Appointment Controller', () => {
       const next = jest.fn((err) => {
         expect(err).toBeInstanceOf(ConflictError);
         expect(err.message).toContain(
-          'Appointment with firstname Wishnu already exists'
+          `Appointment with firstname ${mockFirstName} already exists`
         );
       });
 
@@ -99,24 +114,24 @@ describe('Appointment Controller', () => {
       const next = jest.fn(() => {});
       const mockSavePatient: any = [
         {
-          firstName: 'test',
-          lastName: 'test',
-          nationality: 'test',
-          gender: 'test',
-          address: 'test',
-          dob: 'test',
-          phone: 'test',
-          email: 'test',
+          firstName: mockFirstName,
+          lastName: mockLastName,
+          nationality: mockNationality,
+          gender: mockGender,
+          address: mockAddress,
+          dob: mockDob,
+          phone: mockPhone,
+          email: mockEmail,
         },
       ];
       const mockSaveAppointment: any = [
         {
-          type: 'test',
-          date: 'test',
-          time: 'test',
-          appointmentDescp: 'test',
-          doctorId: 1,
-          patientId: 1,
+          type: mockType,
+          date: mockDate,
+          time: mockTime,
+          appointmentDescp: mockAppointmentDescp,
+          doctorId: mockDoctorId,
+          patientId: mockPatientId,
         },
       ];
 
@@ -124,17 +139,17 @@ describe('Appointment Controller', () => {
         statusCode: 200,
         response: {
           message: 'Appointment created successfully.',
-          patientId: 1,
+          patientId: mockPatientId,
           data: {
             createdDate: '2023-09-29T20:45:08.776Z',
             updatedDate: '2023-09-29T20:45:08.776Z',
             id: 1,
-            type: 'Clinical',
-            date: '2022-12-31T18:30:00.000Z',
-            time: '2022-12-31T18:30:00.000Z',
-            appointmentDescp: 'Heart disease',
-            doctorId: 1,
-            patientId: 1,
+            type: mockType,
+            date: mockDate,
+            time: mockTime,
+            appointmentDescp: mockAppointmentDescp,
+            doctorId: mockDoctorId,
+            patientId: mockPatientId,
           },
         },
       });

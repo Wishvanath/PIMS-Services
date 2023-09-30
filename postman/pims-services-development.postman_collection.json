@@ -1,5 +1,79 @@
 {
-    "define collection here": {
-     "name" : "first collection"
-    }
+	"info": {
+		"_postman_id": "f5f06bb3-48a7-4d19-9cc2-920616619e3d",
+		"name": "PIMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4761048"
+	},
+	"item": [
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "create-appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Wishvanath\",\r\n    \"lastName\": \"Sah\",\r\n    \"nationality\": \"Indian\",\r\n    \"gender\": \"Male\",\r\n    \"address\": \"VIll- Ransi, Post- Kaithia\",\r\n    \"dob\": \"21/06/1992\",\r\n    \"phone\": 9939940266,\r\n    \"email\": \"anandwishvanath@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/pims-services/api/appointment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pims-services",
+								"api",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-appointment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/pims-services/api/appointment/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pims-services",
+								"api",
+								"appointment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }

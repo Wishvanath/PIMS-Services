@@ -130,8 +130,8 @@ describe('Appointment Controller Test', () => {
           date: mockDate,
           time: mockTime,
           appointmentDescp: mockAppointmentDescp,
-          doctorId: mockDoctorId,
-          patientId: mockPatientId,
+          // doctorId: mockDoctorId,
+          // patientId: mockPatientId,
         },
       ];
 

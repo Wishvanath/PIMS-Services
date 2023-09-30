@@ -2,7 +2,7 @@ import httpMocks from 'node-mocks-http';
 import {
   ClientInputError,
   ConflictError,
-  // DatabaseError,
+  DatabaseError,
 } from '../utils/error-handler';
 import * as appointmentService from '../services/appointment.service';
 import * as appointmentController from '../controllers/appointment.controller';

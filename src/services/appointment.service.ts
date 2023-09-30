@@ -105,43 +105,57 @@ export const validateDublicateEntries = async (phone: string) => {
       raw: true,
     });
     if (result.length) {
-      const existingData = JSON.stringify(result);
-      console.log("Existing data: =======>",existingData);
-      return {
-        statusCode: 409,
-        response: 'Dublicate entries',
-      };
+      return true;
     }
-    return null;
+    return false;
   } catch (error: any) {
-    console.log("Error:===========>",error);
     throw new DatabaseError(error);
   }
 };
 
-export const getAppointment = async(patientId: number) => {
+export const getAppointment = async (patientId: number) => {
   try {
     const result = await Patient.findAndCountAll({
-      where: {patientId},
-      attributes: ['patientId','firstName','lastName','nationality','gender','address','dob','phone','email'],
+      where: { patientId },
+      attributes: [
+        'patientId',
+        'firstName',
+        'lastName',
+        'nationality',
+        'gender',
+        'address',
+        'dob',
+        'phone',
+        'email',
+      ],
       include: {
         model: Appointment,
         as: 'appointment',
         // where: {patientId},
-        attributes: ['id','patientId','type', 'createdDate', 'updatedDate', 'date', 'time','appointmentDescp','doctorId']
-      }
+        attributes: [
+          'id',
+          'patientId',
+          'type',
+          'createdDate',
+          'updatedDate',
+          'date',
+          'time',
+          'appointmentDescp',
+          'doctorId',
+        ],
+      },
     });
-    if(result.count){
-      return{
+    if (result.count) {
+      return {
         statusCode: 200,
-        response: result
-      }
+        response: result,
+      };
     }
-    return{
+    return {
       statusCode: 404,
-      response: "Not found"
-    }
-  } catch (error:any) {
+      response: 'Not found',
+    };
+  } catch (error: any) {
     throw new DatabaseError(error);
   }
-}
+};

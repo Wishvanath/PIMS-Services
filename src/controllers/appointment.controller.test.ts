@@ -1,8 +1,8 @@
 import httpMocks from 'node-mocks-http';
 import {
   ClientInputError,
-//   ConflictError,
-  DatabaseError,
+  ConflictError,
+  // DatabaseError,
 } from '../utils/error-handler';
 import * as appointmentService from '../services/appointment.service';
 import * as appointmentController from '../controllers/appointment.controller';
@@ -72,17 +72,17 @@ describe('Appointment Controller', () => {
       expect(next).toBeCalled();
     });
 
-    test('should throw error when appointment has already exits created with phone', async () => {
+    test('should throw error when appointment has already exits', async () => {
       const next = jest.fn((err) => {
-        expect(err).toBeInstanceOf(DatabaseError);
+        expect(err).toBeInstanceOf(ConflictError);
         expect(err.message).toContain(
-          "Cannot read properties of undefined (reading 'original')"
+          'Appointment with firstname Wishnu already exists'
         );
       });
 
       jest
         .spyOn(appointmentService, 'validateDublicateEntries')
-        .mockResolvedValue(null);
+        .mockResolvedValue(true);
 
       const req = httpMocks.createRequest({
         headers: { 'content-type': 'application/json' },
@@ -139,7 +139,9 @@ describe('Appointment Controller', () => {
         },
       });
 
-
+      jest
+        .spyOn(appointmentService, 'validateDublicateEntries')
+        .mockResolvedValue(false);
 
       jest
         .spyOn(appointmentService, 'savePatient')

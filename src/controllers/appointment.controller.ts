@@ -28,15 +28,15 @@ export const createAppointment = async (
     const parseBody = await parseCreateRequestBody(req);
     validateWithSchema(createAppointmentSchema, parseBody);
 
-    // check if has dublicate entries
     const hasDublicateEntries =
       await appointmentService.validateDublicateEntries(parseBody.phone);
     if (hasDublicateEntries) {
-      throw new ConflictError(hasDublicateEntries.response);
+      throw new ConflictError(`Appointment with firstname ${parseBody.firstName} already exists`);
     }
 
     const result = await appointmentService.createAppointment(parseBody);
     return res.status(result.statusCode).json(result.response);
+    
   } catch (error) {
     return next(error);
   }

@@ -14,11 +14,6 @@
     "migrate": "npx sequelize-cli db:migrate --debug",
     "seed": "npx sequelize-cli db:seed:all --debug"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run test"
-    }
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",

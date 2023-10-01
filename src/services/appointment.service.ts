@@ -113,9 +113,9 @@ export const validateDublicateEntries = async (phone: string) => {
   }
 };
 
-export const getAppointment = async (patientId: number) => {
+export const getAppointmentById= async (patientId: number) => {
   try {
-    const result = await Patient.findAndCountAll({
+    const result = await Patient.findAll({
       where: { patientId },
       attributes: [
         'patientId',
@@ -145,7 +145,7 @@ export const getAppointment = async (patientId: number) => {
         ],
       },
     });
-    if (result.count) {
+    if (result.length) {
       return {
         statusCode: 200,
         response: result,

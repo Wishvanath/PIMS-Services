@@ -218,4 +218,102 @@ describe('Appointment Service Test', () => {
       expect(result).toMatchObject(appointmentResponse);
     });
   });
+
+  describe('getAppointmentById', () => {
+    test('should handle database error', async () => {
+      const payload: any = {
+        patientId: mockPatientId,
+      };
+      const error = new Error('dummy error');
+      jest.spyOn(Patient, 'findAll').mockImplementation(() => {
+        throw error;
+      });
+
+      await expect(
+        appointmentService.getAppointmentById(payload)
+      ).rejects.toThrow(error);
+    });
+
+    test('should get 404 if content is not found', async () => {
+      const mockContent:any = {};
+
+      const findAll = jest
+        .spyOn(Patient, 'findAll')
+        .mockResolvedValue(mockContent);
+
+      const result = await appointmentService.getAppointmentById(1);
+      expect(findAll).toBeCalled();
+      expect(result.statusCode).toBe(404)
+
+    });
+
+    test('should get appointment details successfull', async () => {
+      const mockContent: any = [
+        {
+          patientId: mockPatientId,
+          firstName: mockFirstName,
+          lastName: mockLastName,
+          nationality: mockNationality,
+          gender: mockGender,
+          address:mockAddress,
+          dob: mockDob,
+          phone: mockPhone,
+          email: mockEmail,
+          appointment: [
+            {
+              id: 1,
+              patientId: mockPatientId,
+              type: mockType,
+              createdDate: '2023-09-28T18:41:33.000Z',
+              updatedDate: '2023-09-28T18:41:33.000Z',
+              date: mockDate,
+              time: mockTime,
+              appointmentDescp: mockAppointmentDescp,
+              doctorId: mockDoctorId,
+            },
+          ],
+        },
+      ];
+
+      const mockResponse: any = {
+        statusCode: 200,
+        response: [
+          {
+            patientId: mockPatientId,
+            firstName: mockFirstName,
+            lastName: mockLastName,
+            nationality: mockNationality,
+            gender: mockGender,
+            address:mockAddress,
+            dob: mockDob,
+            phone: mockPhone,
+            email: mockEmail,
+            appointment: [
+              {
+                id: 1,
+                patientId: mockPatientId,
+                type: mockType,
+                createdDate: '2023-09-28T18:41:33.000Z',
+                updatedDate: '2023-09-28T18:41:33.000Z',
+                date: mockDate,
+                time: mockTime,
+                appointmentDescp: mockAppointmentDescp,
+                doctorId: mockDoctorId,
+              },
+            ],
+          },
+        ] as any,
+      };
+
+      const findAll = jest
+        .spyOn(Patient, 'findAll')
+        .mockResolvedValue(mockContent);
+        
+      const result = await appointmentService.getAppointmentById(1);
+
+      expect(findAll).toHaveBeenCalled();
+      expect(result.statusCode).toBe(200);
+      expect(result.response).toMatchObject(mockResponse.response);
+    });
+  });
 });

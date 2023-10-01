@@ -7,10 +7,10 @@ import {
 } from '../utils/gateway-helper';
 import {
   ClientInputError,
-  // NotFoundError,
   ConflictError,
+  NotFoundError,
 } from '../utils/error-handler';
-import { validateWithSchema } from '../utils/input.validator';
+import { validateRequired, validateWithSchema } from '../utils/input.validator';
 
 export const createAppointment = async (
   req: Request,
@@ -31,31 +31,44 @@ export const createAppointment = async (
     const hasDublicateEntries =
       await appointmentService.validateDublicateEntries(parseBody.phone);
     if (hasDublicateEntries) {
-      throw new ConflictError(`Appointment with firstname ${parseBody.firstName} already exists`);
+      throw new ConflictError(
+        `Appointment with firstname ${parseBody.firstName} already exists`
+      );
     }
 
     const result = await appointmentService.createAppointment(parseBody);
     return res.status(result.statusCode).json(result.response);
-    
   } catch (error) {
     return next(error);
   }
 };
 
-export const getAppointment = async (
+export const getAppointmentById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const patientId: any = req.params.id;
-    // console.log("PatientId :================>", patientId);
 
-    // add missing data validation
+    const missingData: any = validateRequired(patientId);
+    if (missingData.length) {
+      throw new ClientInputError(`Missing params: PatientId`);
+    }
 
-    const result = await appointmentService.getAppointment(patientId);
+    if (Number.isNaN(Number(patientId))) {
+      throw new ClientInputError('PatientId must be a number');
+    }
 
-    return res.status(result.statusCode).json(result.response);
+    const result = await appointmentService.getAppointmentById(Number(patientId));
+
+    if(result){
+      if(result.statusCode == 404){
+        throw new NotFoundError(`Appointment details with ${patientId} not found.`);
+      }
+      return res.status(result.statusCode).json(result.response);
+    }
+
   } catch (error: any) {
     return next(error);
   }

@@ -2,7 +2,8 @@ import httpMocks from 'node-mocks-http';
 import {
   ClientInputError,
   ConflictError,
-  DatabaseError,
+  // DatabaseError,
+  NotFoundError,
 } from '../utils/error-handler';
 import * as appointmentService from '../services/appointment.service';
 import * as appointmentController from '../controllers/appointment.controller';
@@ -180,5 +181,117 @@ describe('Appointment Controller Test', () => {
       expect(res.writableEnded).toBe(true);
       expect(next).not.toBeCalled();
     });
+  });
+
+  describe('getAppointmentById', () => {
+    const mockResponse: any = {
+      statusCode: 200,
+      response: {
+        patientId: mockPatientId,
+        firstName: mockFirstName,
+        lastName: mockLastName,
+        nationality: mockNationality,
+        gender: mockGender,
+        address: mockAddress,
+        dob: mockDob,
+        phone: mockPhone,
+        email: mockEmail,
+        appointment: [
+          {
+            id: mockPatientId,
+            patientId: mockPatientId,
+            type: mockType,
+            createdDate: '2023-09-27T18:41:53.000Z',
+            updatedDate: '2023-09-27T18:41:53.000Z',
+            date: mockDate,
+            time: mockTime,
+            appointmentDescp: mockAppointmentDescp,
+            doctorId: mockDoctorId,
+          },
+        ],
+      },
+    };
+
+    test('should throw 404 error for bad request when id is NAN ', async () => {
+      const next = jest.fn((err) => {
+        expect(err).toBeInstanceOf(NotFoundError);
+        expect(err.message).toEqual(`Appointment details with 200 not found.`);
+      });
+
+      const req = httpMocks.createRequest({
+        params: {
+          id: 200,
+        },
+      });
+      const res = httpMocks.createResponse();
+
+      await appointmentController.getAppointmentById(req, res, next);
+      expect.assertions(4);
+      expect(res.writableEnded).toBe(false);
+      expect(next).toBeCalled();
+
+    });
+
+    test('should get data succussfully with 200 status code', async () => {
+      const req = httpMocks.createRequest({
+        params: {
+          id: 1,
+        },
+      });
+      const res = httpMocks.createResponse();
+      const next = jest.fn(() => {});
+
+      jest
+        .spyOn(appointmentService, 'getAppointmentById')
+        .mockImplementation(() => mockResponse);
+
+
+      await appointmentController.getAppointmentById(req, res, next);
+      const body = res._getJSONData();
+
+      expect(res.statusCode).toEqual(200);
+      expect(body).toEqual(mockResponse.response);
+      expect(res.writableEnded).toBe(true);
+      expect(next).not.toBeCalled();
+    });
+
+    test('should throw 400 error for bad request when id is missing', async () => {
+      const mockRequest: any = {
+        params: { id: null },
+      };
+
+      const mockResponse = httpMocks.createResponse();
+
+      const mockNext = jest.fn((err) => {
+        expect(err).toBeInstanceOf(TypeError);
+        expect(err.message).toContain('Cannot convert undefined or null to object');//msg we get wrong 
+      });
+
+
+      await appointmentController.getAppointmentById(mockRequest, mockResponse, mockNext);
+      expect.assertions(4);
+      expect(mockResponse.writableEnded).toBe(false);
+      expect(mockNext).toBeCalled();
+    });
+    
+    test('should throw 400 error for bad request when id is NAN ', async () => {
+      const next = jest.fn((err) => {
+        expect(err).toBeInstanceOf(ClientInputError);
+        expect(err.message).toEqual('PatientId must be a number');
+      });
+
+      const req = httpMocks.createRequest({
+        params: {
+          id: 'test',
+        },
+      });
+      const res = httpMocks.createResponse();
+
+      await appointmentController.getAppointmentById(req, res, next);
+      expect.assertions(4);
+      expect(res.writableEnded).toBe(false);
+      expect(next).toBeCalled();
+    });
+
   });
 });

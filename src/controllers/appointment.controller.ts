@@ -53,22 +53,58 @@ export const getAppointmentById = async (
 
     const missingData: any = validateRequired(patientId);
     if (missingData.length) {
-      throw new ClientInputError(`Missing params: PatientId`);
+      throw new ClientInputError('Missing params: PatientId');
     }
 
     if (Number.isNaN(Number(patientId))) {
       throw new ClientInputError('PatientId must be a number');
     }
 
-    const result = await appointmentService.getAppointmentById(Number(patientId));
+    const result = await appointmentService.getAppointmentById(
+      Number(patientId)
+    );
 
-    if(result){
-      if(result.statusCode == 404){
-        throw new NotFoundError(`Appointment details with ${patientId} not found.`);
+    if (result) {
+      if (result.statusCode == 404) {
+        throw new NotFoundError(
+          `Appointment details with ${patientId} not found.`
+        );
       }
       return res.status(result.statusCode).json(result.response);
     }
+  } catch (error: any) {
+    return next(error);
+  }
+};
 
+export const deleteAppointmentById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const patientId: any = req.params.id;
+
+    const missingData: any = validateRequired(patientId);
+    if (missingData.length) {
+      throw new ClientInputError('Missing params: PatientId');
+    }
+
+    if (Number.isNaN(Number(patientId))) {
+      throw new ClientInputError('PatientId must be a number');
+    }
+
+    const result = await appointmentService.deleteAppointmentById(
+      Number(patientId)
+    );
+    if (result) {
+      return res
+        .status(200)
+        .json(
+          `The Patient appointment record with ${patientId} has deleted successfully.`
+        );
+    }
+    throw new NotFoundError(`Couldn't found record with ${patientId}.`);
   } catch (error: any) {
     return next(error);
   }

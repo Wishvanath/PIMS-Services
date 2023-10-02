@@ -212,7 +212,7 @@ describe('Appointment Controller Test', () => {
       },
     };
 
-    test('should throw 404 error for bad request when id is NAN ', async () => {
+    test('should throw 404 error for content not found ', async () => {
       const next = jest.fn((err) => {
         expect(err).toBeInstanceOf(NotFoundError);
         expect(err.message).toEqual(`Appointment details with 200 not found.`);
@@ -229,7 +229,6 @@ describe('Appointment Controller Test', () => {
       expect.assertions(4);
       expect(res.writableEnded).toBe(false);
       expect(next).toBeCalled();
-
     });
 
     test('should get data succussfully with 200 status code', async () => {
@@ -244,7 +243,6 @@ describe('Appointment Controller Test', () => {
       jest
         .spyOn(appointmentService, 'getAppointmentById')
         .mockImplementation(() => mockResponse);
-
 
       await appointmentController.getAppointmentById(req, res, next);
       const body = res._getJSONData();
@@ -264,16 +262,21 @@ describe('Appointment Controller Test', () => {
 
       const mockNext = jest.fn((err) => {
         expect(err).toBeInstanceOf(TypeError);
-        expect(err.message).toContain('Cannot convert undefined or null to object');//msg we get wrong 
+        expect(err.message).toContain(
+          'Cannot convert undefined or null to object'
+        ); //msg we get wrong
       });
 
-
-      await appointmentController.getAppointmentById(mockRequest, mockResponse, mockNext);
+      await appointmentController.getAppointmentById(
+        mockRequest,
+        mockResponse,
+        mockNext
+      );
       expect.assertions(4);
       expect(mockResponse.writableEnded).toBe(false);
       expect(mockNext).toBeCalled();
     });
-    
+
     test('should throw 400 error for bad request when id is NAN ', async () => {
       const next = jest.fn((err) => {
         expect(err).toBeInstanceOf(ClientInputError);
@@ -292,6 +295,129 @@ describe('Appointment Controller Test', () => {
       expect(res.writableEnded).toBe(false);
       expect(next).toBeCalled();
     });
+  });
 
+  describe('deleteAppointmentById', () => {
+    test('should throw 404 error when content not found ', async () => {
+      const mockRequest: any = httpMocks.createRequest({
+        params: {
+          id: mockPatientId,
+        },
+      });
+      const mockResponse: any = {};
+      const mockNext = jest.fn();
+
+      jest
+        .spyOn(appointmentService, 'deleteAppointmentById')
+        .mockResolvedValueOnce(0);
+
+      await appointmentController.deleteAppointmentById(
+        mockRequest,
+        mockResponse,
+        mockNext
+      );
+
+      expect(mockNext).toBeCalledWith(
+        new NotFoundError(`Couldn't found record with ${mockPatientId}.`)
+      );
+    });
+
+    test('should get data succussfully with 200 status code', async () => {
+      const mockResponse: any = {
+        id: mockPatientId,
+      };
+      const req = httpMocks.createRequest({
+        params: {
+          id: 1,
+        },
+      });
+      const res = httpMocks.createResponse();
+      const next = jest.fn(() => {});
+
+      jest
+        .spyOn(appointmentService, 'deleteAppointmentById')
+        .mockImplementation(() => mockResponse);
+
+      await appointmentController.deleteAppointmentById(req, res, next);
+      const body = res._getJSONData();
+
+      expect(res.statusCode).toEqual(200);
+      expect(body).toEqual(
+        `The Patient appointment record with ${mockPatientId} has deleted successfully.`
+      );
+      expect(res.writableEnded).toBe(true);
+      expect(next).not.toBeCalled();
+    });
+
+    test('should get data succussfully with 200 status code 2nd way', async () => {
+      const mockRequest = httpMocks.createRequest({
+        params: {
+          id: mockPatientId,
+        },
+      });
+      const mockResponse: any = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      const mockNext = jest.fn();
+
+      jest
+        .spyOn(appointmentService, 'deleteAppointmentById')
+        .mockResolvedValueOnce(1);
+
+      await appointmentController.deleteAppointmentById(
+        mockRequest,
+        mockResponse,
+        mockNext
+      );
+
+      expect(mockResponse.status).toBeCalledWith(200);
+      expect(mockResponse.json).toBeCalledWith(
+        `The Patient appointment record with ${mockPatientId} has deleted successfully.`
+      );
+    });
+
+    test('should throw 400 error for bad request when id is missing', async () => {
+      const mockRequest: any = {
+        params: { id: null },
+      };
+
+      const mockResponse = httpMocks.createResponse();
+
+      const mockNext = jest.fn((err) => {
+        expect(err).toBeInstanceOf(TypeError);
+        expect(err.message).toContain(
+          'Cannot convert undefined or null to object'
+        ); //msg we get wrong
+      });
+
+      await appointmentController.deleteAppointmentById(
+        mockRequest,
+        mockResponse,
+        mockNext
+      );
+      expect.assertions(4);
+      expect(mockResponse.writableEnded).toBe(false);
+      expect(mockNext).toBeCalled();
+    });
+
+    test('should throw 400 error for bad request when id is NAN ', async () => {
+      const next = jest.fn((err) => {
+        expect(err).toBeInstanceOf(ClientInputError);
+        expect(err.message).toEqual('PatientId must be a number');
+      });
+
+      const req = httpMocks.createRequest({
+        params: {
+          id: 'test',
+        },
+      });
+      const res = httpMocks.createResponse();
+
+      await appointmentController.deleteAppointmentById(req, res, next);
+      expect.assertions(4);
+      expect(res.writableEnded).toBe(false);
+      expect(next).toBeCalled();
+    });
   });
 });

@@ -235,7 +235,7 @@ describe('Appointment Service Test', () => {
     });
 
     test('should get 404 if content is not found', async () => {
-      const mockContent:any = {};
+      const mockContent: any = {};
 
       const findAll = jest
         .spyOn(Patient, 'findAll')
@@ -243,8 +243,7 @@ describe('Appointment Service Test', () => {
 
       const result = await appointmentService.getAppointmentById(1);
       expect(findAll).toBeCalled();
-      expect(result.statusCode).toBe(404)
-
+      expect(result.statusCode).toBe(404);
     });
 
     test('should get appointment details successfull', async () => {
@@ -255,7 +254,7 @@ describe('Appointment Service Test', () => {
           lastName: mockLastName,
           nationality: mockNationality,
           gender: mockGender,
-          address:mockAddress,
+          address: mockAddress,
           dob: mockDob,
           phone: mockPhone,
           email: mockEmail,
@@ -284,7 +283,7 @@ describe('Appointment Service Test', () => {
             lastName: mockLastName,
             nationality: mockNationality,
             gender: mockGender,
-            address:mockAddress,
+            address: mockAddress,
             dob: mockDob,
             phone: mockPhone,
             email: mockEmail,
@@ -308,12 +307,50 @@ describe('Appointment Service Test', () => {
       const findAll = jest
         .spyOn(Patient, 'findAll')
         .mockResolvedValue(mockContent);
-        
+
       const result = await appointmentService.getAppointmentById(1);
 
       expect(findAll).toHaveBeenCalled();
       expect(result.statusCode).toBe(200);
       expect(result.response).toMatchObject(mockResponse.response);
+    });
+  });
+
+  describe('deleteAppointmentById', () => {
+    test('should handle database error', async () => {
+      const payload: any = {
+        patientId: mockPatientId,
+      };
+      const error = new Error('dummy error');
+      jest.spyOn(Patient, 'destroy').mockImplementation(() => {
+        throw error;
+      });
+
+      await expect(
+        appointmentService.deleteAppointmentById(payload)
+      ).rejects.toThrow(error);
+    });
+
+    test('delete content by patientId - successful', async () => {
+      const deletedRecord = jest.spyOn(Patient, 'destroy').mockResolvedValue(1);
+
+      const actualResponse = await appointmentService.deleteAppointmentById(
+        mockPatientId
+      );
+
+      expect(deletedRecord).toHaveBeenCalled();
+      expect(actualResponse).toBe(1);
+    });
+
+    test('delete content by patientId - not found', async () => {
+      const deletedRecord = jest.spyOn(Patient, 'destroy').mockResolvedValue(0);
+
+      const actualResponse = await appointmentService.deleteAppointmentById(
+        mockPatientId
+      );
+
+      expect(deletedRecord).toHaveBeenCalled();
+      expect(actualResponse).toBe(0);
     });
   });
 });

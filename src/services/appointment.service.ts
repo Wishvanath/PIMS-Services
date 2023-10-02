@@ -113,7 +113,7 @@ export const validateDublicateEntries = async (phone: string) => {
   }
 };
 
-export const getAppointmentById= async (patientId: number) => {
+export const getAppointmentById = async (patientId: number) => {
   try {
     const result = await Patient.findAll({
       where: { patientId },
@@ -155,6 +155,18 @@ export const getAppointmentById= async (patientId: number) => {
       statusCode: 404,
       response: 'Not found',
     };
+  } catch (error: any) {
+    throw new DatabaseError(error);
+  }
+};
+
+export const deleteAppointmentById = async (patientId: number) => {
+  try {
+    const deletePatient = await Patient.destroy({
+      where: {patientId},
+      // force: true
+    });
+    return deletePatient;
   } catch (error: any) {
     throw new DatabaseError(error);
   }

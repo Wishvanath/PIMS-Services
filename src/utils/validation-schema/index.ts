@@ -1,2 +1,2 @@
 export { default as createAppointmentSchema} from './create-appointment-schema';
-// export next if you created
+export { default as updateAppointmentSchema} from './update-appointment-schema';

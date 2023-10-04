@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { createAppointmentSchema } from '../utils/validation-schema';
+import { createAppointmentSchema, updateAppointmentSchema } from '../utils/validation-schema';
 import * as appointmentService from '../services/appointment.service';
 import {
   createRequestHeaderCheck,
@@ -109,3 +109,37 @@ export const deleteAppointmentById = async (
     return next(error);
   }
 };
+
+
+export const updateAppointmentById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    
+    const headerAbsent = await createRequestHeaderCheck(req);
+    if (headerAbsent) {
+      throw new ClientInputError(
+        'request must include a Header value of: Content-type:application/json'
+      );
+    }
+
+    const parseBody = await parseCreateRequestBody(req);
+    validateWithSchema(updateAppointmentSchema, parseBody);
+
+    // const existingAppointment =
+    //   await appointmentService.validateDublicateEntries(parseBody.phone);
+    // if (existingAppointment) {
+    //   throw new ConflictError(
+    //     `Appointment with firstname ${parseBody.firstName} already exists`
+    //   );
+    // }
+
+    const result = await appointmentService.updateAppointmentById(parseBody);
+    return res.status(result.statusCode).json(result.response);
+
+  } catch (error:any) {
+    return next(error)
+  }
+}

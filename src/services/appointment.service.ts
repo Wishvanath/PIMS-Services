@@ -163,10 +163,111 @@ export const getAppointmentById = async (patientId: number) => {
 export const deleteAppointmentById = async (patientId: number) => {
   try {
     const deletePatient = await Patient.destroy({
-      where: {patientId},
+      where: { patientId },
       // force: true
     });
     return deletePatient;
+  } catch (error: any) {
+    throw new DatabaseError(error);
+  }
+};
+
+export const updateAppointmentById = async (payload: any) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      nationality,
+      gender,
+      address,
+      dob,
+      phone,
+      email,
+      type,
+      date,
+      time,
+      appointmentDescp,
+      doctorId,
+      patientId,
+    } = payload;
+
+    const patientData = {
+      firstName,
+      lastName,
+      nationality,
+      gender,
+      address,
+      dob,
+      phone,
+      email,
+      patientId,
+    };
+
+    const appointmentData: any = {
+      type,
+      date,
+      time,
+      appointmentDescp,
+      doctorId,
+      patientId,
+    };
+
+    const result = await sequelize.transaction(
+      async (transaction: Transaction) => {
+        const patientResult: any = await updatePatient(
+          patientData,
+          transaction
+        );
+
+        const appointmentResult: any = await updateAppointment(
+          appointmentData,
+          transaction
+        );
+
+        return {
+          statusCode: 200,
+          response: {
+            message: `Appointment with ${patientId}  updated successfully.`,
+            patientData: patientResult,
+            appointmentData: appointmentResult
+          },
+        };
+      }
+    );
+    return result
+  } catch (error: any) {
+    throw new DatabaseError(error);
+  }
+};
+
+export const updatePatient = async (
+  patientPayload: any,
+  transaction: Transaction | null = null
+) => {
+  try {
+    const { patientId } = patientPayload;
+    const patientResult = await Patient.update(patientPayload, {
+      where: { patientId },
+      transaction,
+    });
+    console.log("Patient Result: =======>", patientResult);
+    return patientResult;
+  } catch (error: any) {
+    throw new DatabaseError(error);
+  }
+};
+
+export const updateAppointment = async (
+  appointmentPayload: any,
+  transaction: Transaction | null = null
+) => {
+  try {
+    const { patientId } = appointmentPayload;
+    const appointmentResult = await Appointment.update(appointmentPayload, {
+      where: { patientId },
+      transaction,
+    });
+    return appointmentResult;
   } catch (error: any) {
     throw new DatabaseError(error);
   }

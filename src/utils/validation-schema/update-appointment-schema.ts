@@ -1,6 +1,6 @@
 import Schema from 'validate';
 
-const createAppointmentSchema = new Schema({
+const updateAppointmentSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -62,11 +62,11 @@ const createAppointmentSchema = new Schema({
     required: true,
     message: 'doctorId is required.',
   },
-  // patientId: {
-  //     type: Number,
-  //     required: true,
-  //     message: 'patientId is required.'
-  // }
+  patientId: {
+    type: Number,
+    required: true,
+    message: 'patientId is required.',
+  },
 });
 
-export default createAppointmentSchema;
+export default updateAppointmentSchema;

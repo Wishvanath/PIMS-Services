@@ -25,7 +25,7 @@ module.exports = {
           field: 'Email',
           type: Sequelize.STRING(255),
           allowNull: true,
-          unique:true,
+          unique: true,
         },
         address: {
           field: 'Address',

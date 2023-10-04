@@ -1,22 +1,22 @@
-const env = process.env.NODE_ENV || 'development' ;
+const env = process.env.NODE_ENV || 'development';
 
 module.exports = async () => {
-    const connectionString = {
-        [env] : {
-            dialect: 'mysql',
-            host: '127.0.0.1',
-            username: 'root',
-            password: 'admin',
-            database: 'pims',
-            migrationStorageTableName: 'dbMigrations',
-            seederStorage: 'sequelize',
-            seederStorageTableName: 'dbSeeder',
-            pool: {
-                max: 5,
-                min: 0,
-                idle: 10000,
-            }
-        }
-    };
-    return connectionString
-}
+  const connectionString = {
+    [env]: {
+      dialect: 'mysql',
+      host: '127.0.0.1',
+      username: 'root',
+      password: 'admin',
+      database: 'pims',
+      migrationStorageTableName: 'dbMigrations',
+      seederStorage: 'sequelize',
+      seederStorageTableName: 'dbSeeder',
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000,
+      },
+    },
+  };
+  return connectionString;
+};

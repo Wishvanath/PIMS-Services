@@ -229,12 +229,12 @@ export const updateAppointmentById = async (payload: any) => {
           response: {
             message: `Appointment with ${patientId}  updated successfully.`,
             patientData: patientResult,
-            appointmentData: appointmentResult
+            appointmentData: appointmentResult,
           },
         };
       }
     );
-    return result
+    return result;
   } catch (error: any) {
     throw new DatabaseError(error);
   }
@@ -250,7 +250,6 @@ export const updatePatient = async (
       where: { patientId },
       transaction,
     });
-    console.log("Patient Result: =======>", patientResult);
     return patientResult;
   } catch (error: any) {
     throw new DatabaseError(error);

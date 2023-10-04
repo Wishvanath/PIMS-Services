@@ -67,7 +67,6 @@ PrescribedMedicine.belongsTo(PatientReport, {
   targetKey: 'ReportId',
 });
 
-
 Medicine.hasMany(PrescribedMedicine, {
   foreignKey: 'MedicineId',
   sourceKey: 'MedicineId',

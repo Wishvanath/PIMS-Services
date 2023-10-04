@@ -24,8 +24,8 @@ module.exports = {
             key: 'MedicineId',
           },
           allowNull: false,
-           onUpdate: 'CASCADE',
-           onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         reportId: {
           field: 'ReportId',

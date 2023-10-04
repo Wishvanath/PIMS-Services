@@ -70,7 +70,7 @@ export const Patient: ModelDefined<
       field: 'Email',
       type: DataTypes.STRING(255),
       allowNull: true,
-      unique:true,
+      unique: true,
     },
   },
   {

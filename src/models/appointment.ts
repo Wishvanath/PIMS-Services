@@ -36,12 +36,12 @@ export const Appointment: ModelDefined<
     patientId: {
       field: 'PatientId',
       type: DataTypes.INTEGER,
-        references: {
-            model:{
-                tableName: 'Patient',
-            },
-            key: 'PatientId',
+      references: {
+        model: {
+          tableName: 'Patient',
         },
+        key: 'PatientId',
+      },
       allowNull: false,
       onUpdate: 'cascade',
       onDelete: 'cascade',

@@ -80,7 +80,7 @@ export const Insurance: ModelDefined<
     indexes: [
       {
         unique: true,
-        fields: ['PatientId','InsuranceId'],
+        fields: ['PatientId', 'InsuranceId'],
       },
     ],
   }

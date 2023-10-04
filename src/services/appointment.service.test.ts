@@ -432,9 +432,114 @@ describe('Appointment Service Test', () => {
         .spyOn(Appointment, 'update')
         .mockImplementation(() => mockCreateResponse);
 
-      const result = await appointmentService.updateAppointment(mockCreateResponse);
+      const result = await appointmentService.updateAppointment(
+        mockCreateResponse
+      );
       expect(update).toHaveBeenCalled();
       expect(result).toMatchObject(mockCreateResponse);
+    });
+  });
+
+  describe('updateAppointmentById', () => {
+    test('should handle database error', async () => {
+      const updateAppointmentPayload: any = {
+        firstName: mockFirstName,
+        lastName: mockLastName,
+        nationality: mockNationality,
+        gender: mockGender,
+        address: mockAddress,
+        dob: mockDob,
+        phone: mockPhone,
+        email: mockEmail,
+        type: mockType,
+        date: mockDate,
+        time: mockTime,
+        appointmentDescp: mockAppointmentDescp,
+        doctorId: mockDoctorId,
+        patientId: mockPatientId,
+      };
+      const error = new Error('dummy error');
+      jest.spyOn(Appointment, 'update').mockImplementation(() => {
+        throw error;
+      });
+
+      await expect(
+        appointmentService.updateAppointmentById(updateAppointmentPayload)
+      ).rejects.toThrow(error);
+    });
+    test('should return success response', async () => {
+      const mockCreateResponse: any = {
+        firstName: mockFirstName,
+        lastName: mockLastName,
+        nationality: mockNationality,
+        gender: mockGender,
+        address: mockAddress,
+        dob: mockDob,
+        phone: mockPhone,
+        email: mockEmail,
+        type: mockType,
+        date: mockDate,
+        time: mockTime,
+        appointmentDescp: mockAppointmentDescp,
+        doctorId: mockDoctorId,
+        patientId: mockPatientId,
+      };
+      const updatePatientPayload: any = {
+        firstName: mockFirstName,
+        lastName: mockLastName,
+        nationality: mockNationality,
+        gender: mockGender,
+        address: mockAddress,
+        dob: mockDob,
+        phone: mockPhone,
+        email: mockEmail,
+        patientId: mockPatientId,
+      };
+      const updateAppointmentPayload: any = {
+        type: mockType,
+        date: mockDate,
+        time: mockTime,
+        appointmentDescp: mockAppointmentDescp,
+        doctorId: mockDoctorId,
+        patientId: mockPatientId,
+      };
+
+      jest
+        .spyOn(appointmentService, 'updatePatient')
+        .mockImplementation(() => updatePatientPayload);
+
+      jest
+        .spyOn(appointmentService, 'updateAppointment')
+        .mockImplementation(() => updateAppointmentPayload);
+
+      const result = await appointmentService.updateAppointmentById(
+        mockCreateResponse
+      );
+      expect(result).toMatchObject({
+        statusCode: 200,
+        response: {
+          message: `Appointment with ${mockPatientId}  updated successfully.`,
+          patientData: {
+            firstName: 'test',
+            lastName: 'test',
+            nationality: 'test',
+            gender: 'Male',
+            address: 'test',
+            dob: '1992-01-31 18:30:00.000',
+            phone: '9999999999',
+            email: 'test@gmail.com',
+            patientId: 1,
+          },
+          appointmentData: {
+            type: 'test',
+            date: '2023-09-30T17:43:59.397Z',
+            time: '2023-09-30T17:43:59.397Z',
+            appointmentDescp: 'test',
+            doctorId: 1,
+            patientId: 1,
+          },
+        },
+      });
     });
   });
 });

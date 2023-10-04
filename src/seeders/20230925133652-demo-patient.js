@@ -1,18 +1,19 @@
 const TABLE_NAME = 'Patient';
 const rows = [
   {
-    patientId:1,
+    patientId: 1,
     firstName: 'Wishvanath',
     lastName: 'Sah',
     nationality: 'Indian',
     gender: 'Male',
-    address: 'Vill- Ransi, Post- Kaithia, PS- Basantrai, Dist- Godda(Jharkhand)',
+    address:
+      'Vill- Ransi, Post- Kaithia, PS- Basantrai, Dist- Godda(Jharkhand)',
     dob: '1992/01/01',
     phone: '9939940266',
-    email: 'anandwishvanath@gmail.com'
+    email: 'anandwishvanath@gmail.com',
   },
   {
-    patientId:2,
+    patientId: 2,
     firstName: 'Mohan',
     lastName: 'Shrivastav',
     nationality: 'Indian',
@@ -20,26 +21,27 @@ const rows = [
     address: 'Delhi',
     dob: '1993/01/01',
     phone: '9967890012',
-    email: 'mohan.shri@gmail.com'
+    email: 'mohan.shri@gmail.com',
   },
   {
-    patientId:3,
+    patientId: 3,
     firstName: 'Madhu',
     lastName: 'Kumari',
     nationality: 'Indian',
     gender: 'Female',
-    address: 'Vill- Ransi, Post- Kaithia, PS- Basantrai, Dist- Godda(Jharkhand)',
+    address:
+      'Vill- Ransi, Post- Kaithia, PS- Basantrai, Dist- Godda(Jharkhand)',
     dob: '2000/01/01',
     phone: '6204103772',
-    email: 'madhu.kumari@gmail.com'
-  }
-]
+    email: 'madhu.kumari@gmail.com',
+  },
+];
 module.exports = {
-  async up (queryInterface) {
-   await queryInterface.bulkInsert(TABLE_NAME, rows, {});
+  async up(queryInterface) {
+    await queryInterface.bulkInsert(TABLE_NAME, rows, {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete(
       TABLE_NAME,
       {
@@ -47,5 +49,5 @@ module.exports = {
       },
       {}
     );
-  }
+  },
 };

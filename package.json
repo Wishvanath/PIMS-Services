@@ -12,7 +12,8 @@
     "test:dev": "jest --watchAll",
     "prepare": "husky install",
     "migrate": "npx sequelize-cli db:migrate --debug",
-    "seed": "npx sequelize-cli db:seed:all --debug"
+    "seed": "npx sequelize-cli db:seed:all --debug",
+    "format": "npx prettier ./src --write"
   },
   "keywords": [],
   "author": "",

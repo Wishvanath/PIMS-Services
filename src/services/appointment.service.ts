@@ -1,8 +1,9 @@
+import { Op, where as whereOperator } from 'sequelize';
+import Transaction from 'sequelize/types/transaction';
 import { sequelize } from '../models';
 import { DatabaseError } from '../utils/error-handler';
 import { Appointment } from '../models/appointment';
 import { Patient } from '../models/patient';
-import Transaction from 'sequelize/types/transaction';
 
 export const createAppointment = async (payload: any) => {
   try {
@@ -267,6 +268,60 @@ export const updateAppointment = async (
       transaction,
     });
     return appointmentResult;
+  } catch (error: any) {
+    throw new DatabaseError(error);
+  }
+};
+
+export const getAllAppointment = async (
+  limit: number,
+  offset: number,
+  keyword: string,
+  filters: any
+) => {
+  try {
+    const { assignedDoctor } = filters;
+    const whereConditions: any = [];
+    const whereDocotorIds: any = [];
+
+    if (keyword.length > 0) {
+      whereConditions.push(
+        whereOperator(sequelize.col('firstName'), {
+          [Op.substring]: keyword,
+        })
+      );
+    }
+    if (assignedDoctor && assignedDoctor.length) {
+      whereDocotorIds.push(
+        whereOperator(sequelize.col('`Appointment`.`doctorId`'), {
+          [Op.in]: assignedDoctor,
+        })
+      );
+    }
+    const { count, rows: appointmentResult } = await Patient.findAndCountAll({
+      attributes: ['firstName', 'phone'],
+      offset,
+      limit,
+      where: sequelize.and(...whereConditions),
+      include: [
+        {
+          model: Appointment,
+          as: 'appointment',
+          where: sequelize.and(...whereDocotorIds),
+          attributes: ['type', 'date', 'time', 'appointmentDescp', 'doctorId'],
+        },
+      ],
+    });
+    if (!count) {
+      return {
+        statusCode: 204,
+        response: 'Appointment does not exist',
+      };
+    }
+    return {
+      statusCode: 200,
+      response: { count, rows: appointmentResult },
+    };
   } catch (error: any) {
     throw new DatabaseError(error);
   }

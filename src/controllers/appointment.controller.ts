@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import {
   createAppointmentSchema,
   updateAppointmentSchema,
+  getAllAppointmentSchema,
 } from '../utils/validation-schema';
 import * as appointmentService from '../services/appointment.service';
 import {
@@ -131,6 +132,44 @@ export const updateAppointmentById = async (
 
     const result = await appointmentService.updateAppointmentById(parseBody);
     return res.status(result.statusCode).json(result.response);
+  } catch (error: any) {
+    return next(error);
+  }
+};
+
+export const getAllAppointment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const headerAbsent = await createRequestHeaderCheck(req);
+    if (headerAbsent) {
+      throw new ClientInputError(
+        'request must include a Header value of: Content-type:application/json'
+      );
+    }
+
+    const parseBody = await parseCreateRequestBody(req);
+    validateWithSchema(getAllAppointmentSchema, parseBody);
+
+    const {
+      limit = 10,
+      offset = 0,
+      keyword = '',
+      filters = {},
+    }: any = parseBody;
+
+    const result = await appointmentService.getAllAppointment(
+      limit,
+      offset,
+      keyword,
+      filters
+    );
+
+    if (result) {
+      return res.status(result.statusCode).json(result.response);
+    }
   } catch (error: any) {
     return next(error);
   }

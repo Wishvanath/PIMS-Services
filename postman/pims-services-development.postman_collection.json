@@ -22,7 +22,80 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Wishvanath\",\r\n    \"lastName\": \"Sah\",\r\n    \"nationality\": \"Indian\",\r\n    \"gender\": \"Male\",\r\n    \"address\": \"VIll- Ransi, Post- Kaithia\",\r\n    \"dob\": \"21/06/1992\",\r\n    \"phone\": 9939940266,\r\n    \"email\": \"anandwishvanath@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Wishvanath\",\r\n    \"lastName\": \"Sah\",\r\n    \"nationality\": \"Indian\",\r\n    \"gender\": \"Male\",\r\n    \"address\": \"Hyderaabd\",\r\n    \"dob\": \"1992/01/01\",\r\n    \"phone\": \"8903526657\",\r\n    \"email\": \"wishvanath.sah@gmail.com\",\r\n    \"type\" : \"Clinical\",\r\n    \"date\" : \"2023/01/01\",\r\n    \"time\" : \"2023/01/01\",\r\n    \"appointmentDescp\" : \"Heart disease\",\r\n    \"doctorId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/pims-services/api/appointment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pims-services",
+								"api",
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"limit\": 10,\r\n    \"offset\": 0,\r\n    \"keyword\": \"Wish\",\r\n    \"filters\": {\r\n        \"assignedDoctor\": [\r\n            1,\r\n            2\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/pims-services/api/appointment/all-details",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pims-services",
+								"api",
+								"appointment",
+								"all-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-appointment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Wishvanath\",\r\n    \"lastName\": \"Sah\",\r\n    \"nationality\": \"Indian\",\r\n    \"gender\": \"Male\",\r\n    \"address\": \"Hyderaabd\",\r\n    \"dob\": \"1992/01/01\",\r\n    \"phone\": \"8903526657\",\r\n    \"email\": \"wishvanth.sah@gmail.com\",\r\n    \"type\": \"Heart\",\r\n    \"date\": \"2023/01/01\",\r\n    \"time\": \"2023/01/01\",\r\n    \"appointmentDescp\": \"Heart disease\",\r\n    \"doctorId\": 2,\r\n    \"patientId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,10 +136,45 @@
 								"appointment",
 								":id"
 							],
+							"query": [
+								{
+									"key": "id",
+									"value": null,
+									"disabled": true
+								}
+							],
 							"variable": [
 								{
 									"key": "id",
 									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-appointment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/pims-services/api/appointment/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pims-services",
+								"api",
+								"appointment",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "83"
 								}
 							]
 						}

@@ -569,17 +569,17 @@ describe('Appointment Controller Test', () => {
                 doctorId: mockDoctorId,
               },
             ],
-          }
-        ]
+          },
+        ],
       },
     };
 
     test('should get data succussfully with 200 status code', async () => {
       const req = httpMocks.createRequest({
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
-        body:mockRequest
+        body: mockRequest,
       });
       const res = httpMocks.createResponse();
       const next = jest.fn(() => {});

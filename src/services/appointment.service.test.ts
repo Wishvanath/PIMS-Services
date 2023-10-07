@@ -520,26 +520,123 @@ describe('Appointment Service Test', () => {
         response: {
           message: `Appointment with ${mockPatientId}  updated successfully.`,
           patientData: {
-            firstName: 'test',
-            lastName: 'test',
-            nationality: 'test',
-            gender: 'Male',
-            address: 'test',
-            dob: '1992-01-31 18:30:00.000',
-            phone: '9999999999',
-            email: 'test@gmail.com',
-            patientId: 1,
+            firstName: mockFirstName,
+            lastName: mockLastName,
+            nationality: mockNationality,
+            gender: mockGender,
+            address: mockAddress,
+            dob: mockDob,
+            phone: mockPhone,
+            email: mockEmail,
+            patientId: mockPatientId,
           },
           appointmentData: {
-            type: 'test',
-            date: '2023-09-30T17:43:59.397Z',
-            time: '2023-09-30T17:43:59.397Z',
-            appointmentDescp: 'test',
-            doctorId: 1,
-            patientId: 1,
+            type: mockType,
+            date: mockDate,
+            time: mockTime,
+            appointmentDescp: mockAppointmentDescp,
+            doctorId: mockDoctorId,
+            patientId: mockPatientId,
           },
         },
       });
+    });
+  });
+
+  describe('getAllAppointment', () => {
+    test('should handle database error', async () => {
+      const mockFilters: any = {
+        assignedDoctor: [1, 2],
+      };
+      const error = new Error('dummy error');
+
+      jest.spyOn(Patient, 'findAndCountAll').mockImplementation(() => {
+        throw error;
+      });
+
+      await expect(
+        appointmentService.getAllAppointment(10, 0, '', mockFilters)
+      ).rejects.toThrow(error);
+    });
+
+    test('should return 204 when content not found', async () => {
+      const mockContent: any = {};
+
+      const findAndCountAll = jest
+        .spyOn(Patient, 'findAndCountAll')
+        .mockResolvedValue(mockContent);
+
+      const mockResponse: any = {
+        statusCode: 204,
+        response: 'Appointment does not exist',
+      };
+
+      const result: any = await appointmentService.getAllAppointment(
+        10,
+        0,
+        '',
+        {
+          assignedDoctor: [7, 8],
+        }
+      );
+
+      expect(findAndCountAll).toHaveBeenCalled();
+      expect(result).toMatchObject(mockResponse);
+    });
+
+    test('should return data successfully with 200 status code', async () => {
+      const mockContent: any = {
+        count: 1,
+        rows: [
+          {
+            firstName: mockFirstName,
+            phone: mockPhone,
+            appointment: [
+              {
+                type: mockType,
+                date: mockDate,
+                time: mockTime,
+                appointmentDescp: mockAppointmentDescp,
+                doctorId: mockDoctorId,
+              },
+            ],
+          },
+        ],
+      };
+
+      const mockResponse: any = {
+        statusCode: 200,
+        response: {
+          count: 1,
+          rows: [
+            {
+              firstName: mockFirstName,
+              phone: mockPhone,
+              appointment: [
+                {
+                  type: mockType,
+                  date: mockDate,
+                  time: mockTime,
+                  appointmentDescp: mockAppointmentDescp,
+                  doctorId: mockDoctorId,
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      const findAndCountAll = jest
+        .spyOn(Patient, 'findAndCountAll')
+        .mockResolvedValue(mockContent);
+
+      const result = await appointmentService.getAllAppointment(10, 0, '', {
+        assignedDoctor: [7, 8],
+      });
+
+      expect(findAndCountAll).toHaveBeenCalled();
+      expect(result.statusCode).toBe(200);
+      expect(result.response).toMatchObject(mockResponse.response);
     });
   });
 });

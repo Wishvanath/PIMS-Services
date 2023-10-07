@@ -542,4 +542,59 @@ describe('Appointment Controller Test', () => {
       expect(next).not.toBeCalled();
     });
   });
+
+  describe('getAllAppointment', () => {
+    const mockRequest = {
+      limit: 10,
+      offset: 0,
+      keyword: 'title',
+      filters: {
+        assignedDoctor: [1, 2],
+      },
+    };
+    const mockResponse: any = {
+      statusCode: 200,
+      response: {
+        count: 1,
+        rows: [
+          {
+            firstName: mockFirstName,
+            phone: mockPhone,
+            appointment: [
+              {
+                type: mockType,
+                date: mockDate,
+                time: mockTime,
+                appointmentDescp: mockAppointmentDescp,
+                doctorId: mockDoctorId,
+              },
+            ],
+          }
+        ]
+      },
+    };
+
+    test('should get data succussfully with 200 status code', async () => {
+      const req = httpMocks.createRequest({
+        headers: {
+          'content-type': 'application/json'
+        },
+        body:mockRequest
+      });
+      const res = httpMocks.createResponse();
+      const next = jest.fn(() => {});
+
+      jest
+        .spyOn(appointmentService, 'getAllAppointment')
+        .mockImplementation(() => mockResponse);
+
+      await appointmentController.getAllAppointment(req, res, next);
+      const body = res._getJSONData();
+
+      expect(res.statusCode).toEqual(200);
+      expect(body).toEqual(mockResponse.response);
+      expect(res.writableEnded).toBe(true);
+      expect(next).not.toBeCalled();
+    });
+  });
 });

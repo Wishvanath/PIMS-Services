@@ -1,3 +1,4 @@
+// npx sequelize-cli seed:generate --name demo-user
 const TABLE_NAME = 'Patient';
 const rows = [
   {

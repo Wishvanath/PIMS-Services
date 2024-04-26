@@ -1,4 +1,3 @@
-import { sequelize } from '../models';
 import { Appointment } from '../models/appointment';
 import { Patient } from '../models/patient';
 import * as appointmentService from './appointment.service';

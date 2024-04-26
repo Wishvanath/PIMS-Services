@@ -2,10 +2,10 @@
   "name": "pims",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "index.js",
   "scripts": {
-    "start": "npx nodemon",
-    "start-dev": "npx sequelize-cli db:migrate && nodemon src/app.ts",
+    "start": "npx tsx src/app.ts",
+    "start-dev": "npx sequelize-cli db:migrate && nodemon src/app.js",
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --fix",
     "test": "jest ./src",
@@ -41,6 +41,7 @@
     "prettier": "^2.8.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
+    "tsx": "^4.7.1",
     "typescript": "^4.9.4"
   },
   "dependencies": {

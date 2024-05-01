@@ -154,8 +154,8 @@ export const getAllAppointment = async (
     validateWithSchema(getAllAppointmentSchema, parseBody);
 
     const {
-      limit = 10,
-      offset = 0,
+      limit,
+      offset,
       keyword = '',
       filters = {},
     }: any = parseBody;

@@ -58,7 +58,7 @@ const createAppointmentSchema = new Schema({
     message: 'appointment descp is required.',
   },
   doctorId: {
-    type: Number,
+    type: String,
     required: true,
     message: 'doctorId is required.',
   },

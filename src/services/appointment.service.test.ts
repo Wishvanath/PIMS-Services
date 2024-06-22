@@ -588,8 +588,10 @@ describe('Appointment Service Test', () => {
         count: 1,
         rows: [
           {
+            patientId: mockPatientId,
             firstName: mockFirstName,
             phone: mockPhone,
+            gender: mockGender,
             appointment: [
               {
                 type: mockType,
@@ -609,8 +611,10 @@ describe('Appointment Service Test', () => {
           count: 1,
           rows: [
             {
+              patientId: mockPatientId,
               firstName: mockFirstName,
               phone: mockPhone,
+              gender: mockGender,
               appointment: [
                 {
                   type: mockType,

@@ -299,7 +299,7 @@ export const getAllAppointment = async (
       );
     }
     const { count, rows: appointmentResult } = await Patient.findAndCountAll({
-      attributes: ['firstName', 'phone'],
+      attributes: ['patientId', 'firstName', 'phone', 'gender'],
       offset,
       limit,
       where: sequelize.and(...whereConditions),
